@@ -42,6 +42,7 @@ gem 'omniauth-twitter'
 gem 'rails_12factor'
 gem 'twitter'
 gem 'twitter-text'
+gem 'figaro'
 
 group :development do
 	gem 'better_errors'
