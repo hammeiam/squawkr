@@ -1,0 +1,71 @@
+<% if signed_in? %>
+	<ul>
+		<li><%= current_user.uid %></li>
+		<li><%= current_user.name %></li>
+		<li><%= current_user.nickname %></li>
+		<li><%= current_user.token %></li>
+		<li><%= current_user.secret %></li>
+	</ul>
+
+	<canvas id="canvas" width="440" height="220"></canvas>
+
+	Tweet?
+	<form action="/tweet">
+			<input type="hidden" name="authenticity_token"
+		    value="<%= form_authenticity_token %>">
+		  <input type="text" name="user[tweet_body]">
+		  <input type="submit" value="Submit">
+		</form>
+
+		<textarea id="text" maxlength="710"></textarea>
+<script type="text/javascript">
+var canvas = $('#canvas');
+var ctx = canvas.get(0).getContext('2d');
+
+$('#text').keyup(function (e) {
+  e.preventDefault();
+  
+  var text = $('#text').val(),
+      fontSize = 16,
+      width = 440,
+      lines = [],
+      line = '',
+      lineTest = '',
+      words = text.split(' '),
+      currentY = 0;
+  
+  ctx.font = fontSize + 'px Helvetica';
+  ctx.fillStyle = "rgb(41, 47, 51);"
+    
+  for (var i = 0, len = words.length; i < len; i++) {
+    lineTest = line + words[i] + ' ';
+    
+    // Check total width of line or last word
+    if (ctx.measureText(lineTest).width > width) {
+      // Calculate the new height
+      currentY = lines.length * (fontSize + 2) + fontSize;
+
+      // Record and reset the current line
+      lines.push({ text: line, height: currentY });
+      line = words[i] + ' ';
+    } else {
+      line = lineTest;
+    }
+  }
+  
+  // Catch last line in-case something is left over
+  if (line.length > 0) {
+    currentY = lines.length * (fontSize + 2) + fontSize;
+    lines.push({ text: line.trim(), height: currentY });
+  }
+  
+  // Visually output text
+  ctx.clearRect(0, 0, 440, 220);
+  for (var i = 0, len = lines.length; i < len; i++) {
+    ctx.fillText(lines[i].text, 0, lines[i].height);
+  }
+});
+</script>
+<% else %>
+	You are not logged in
+<% end %>
