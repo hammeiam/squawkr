@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root 'statics#home'
-  get "/tweet", to: "users#tweet", as: :tweet
+  match "/tweet", to: "users#tweet", via: [:post], as: :tweet
   get "/logout", to: "sessions#destroy", as: :logout
   
   get "/auth/:provider/callback", to: "sessions#create"

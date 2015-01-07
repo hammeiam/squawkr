@@ -15,56 +15,94 @@
 		    value="<%= form_authenticity_token %>">
 		  <input type="text" name="user[tweet_body]">
 		  <input type="submit" value="Submit">
-		</form>
+	</form>
 
-		<textarea id="text" maxlength="710"></textarea>
+	<textarea id="text" maxlength="710"></textarea>
+	<a href="#" id="submit">Submit</a>
+
+
+
+
 <script type="text/javascript">
-var canvas = $('#canvas');
-var ctx = canvas.get(0).getContext('2d');
+	var canvas = $('#canvas');
+	var ctx = canvas.get(0).getContext('2d');
 
-$('#text').keyup(function (e) {
-  e.preventDefault();
-  
-  var text = $('#text').val(),
-      fontSize = 16,
-      width = 440,
-      lines = [],
-      line = '',
-      lineTest = '',
-      words = text.split(' '),
-      currentY = 0;
-  
-  ctx.font = fontSize + 'px Helvetica';
-  ctx.fillStyle = "rgb(41, 47, 51);"
-    
-  for (var i = 0, len = words.length; i < len; i++) {
-    lineTest = line + words[i] + ' ';
-    
-    // Check total width of line or last word
-    if (ctx.measureText(lineTest).width > width) {
-      // Calculate the new height
-      currentY = lines.length * (fontSize + 2) + fontSize;
+	$('#text').keyup(function (e) {
+	  e.preventDefault();
+	  
+	  var text = $('#text').val(),
+	      fontSize = 16,
+	      width = 440,
+	      lines = [],
+	      line = '',
+	      lineTest = '',
+	      words = text.split(' '),
+	      currentY = 0;
+	  
+	  ctx.font = fontSize + 'px Helvetica';
+	  ctx.fillStyle = "rgb(41, 47, 51);"
+	    
+	  for (var i = 0, len = words.length; i < len; i++) {
+	    lineTest = line + words[i] + ' ';
+	    
+	    // Check total width of line or last word
+	    if (ctx.measureText(lineTest).width > width) {
+	      // Calculate the new height
+	      currentY = lines.length * (fontSize + 2) + fontSize;
 
-      // Record and reset the current line
-      lines.push({ text: line, height: currentY });
-      line = words[i] + ' ';
-    } else {
-      line = lineTest;
+	      // Record and reset the current line
+	      lines.push({ text: line, height: currentY });
+	      line = words[i] + ' ';
+	    } else {
+	      line = lineTest;
+	    }
+	  }
+	  
+	  // Catch last line in-case something is left over
+	  if (line.length > 0) {
+	    currentY = lines.length * (fontSize + 2) + fontSize;
+	    lines.push({ text: line.trim(), height: currentY });
+	  }
+	  
+	  // Visually output text
+	  ctx.clearRect(0, 0, 440, 220);
+	  for (var i = 0, len = lines.length; i < len; i++) {
+	    ctx.fillText(lines[i].text, 0, lines[i].height);
+	  }
+	});
+	function dataURLtoBlob(dataURL) {
+    // Decode the dataURL    
+    var binary = atob(dataURL.split(',')[1]);
+    // Create 8-bit unsigned array
+    var array = [];
+    for(var i = 0; i < binary.length; i++) {
+        array.push(binary.charCodeAt(i));
     }
+    // Return our Blob object
+    return new Blob([new Uint8Array(array)], {type: 'image/png'});
   }
-  
-  // Catch last line in-case something is left over
-  if (line.length > 0) {
-    currentY = lines.length * (fontSize + 2) + fontSize;
-    lines.push({ text: line.trim(), height: currentY });
-  }
-  
-  // Visually output text
-  ctx.clearRect(0, 0, 440, 220);
-  for (var i = 0, len = lines.length; i < len; i++) {
-    ctx.fillText(lines[i].text, 0, lines[i].height);
-  }
-});
+
+	$('#submit').click(function(e){
+		e.preventDefault();
+		var canvas = $('#canvas')[0];
+		var dataURL = canvas.toDataURL("image/png");
+		// Get our file
+	  var file = dataURLtoBlob(dataURL);
+	  // Create new form data
+	  var fd = new FormData();
+	  // Append our Canvas image file to the form data
+	  fd.append("user[image_data]", file);
+	  // And send it
+	  $.ajax({
+	     url: "/tweet",
+	     type: "POST",
+	     data: fd,
+	     processData: false,
+	     contentType: false,
+	  });
+	});
+
+	
 </script>
 <% else %>
 	You are not logged in
