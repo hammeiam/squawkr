@@ -9,15 +9,18 @@
 
 	<canvas id="canvas" width="440" height="220"></canvas>
 
-	Tweet?
-	<form action="/tweet">
+	<!-- <form action="/tweet">
 			<input type="hidden" name="authenticity_token"
 		    value="<%= form_authenticity_token %>">
 		  <input type="text" name="user[tweet_body]">
 		  <input type="submit" value="Submit">
-	</form>
-
-	<textarea id="text" maxlength="710"></textarea>
+	</form> -->
+	<label>Post Title
+		<input type="text" id="post-title">
+	</label>
+	<label>Post Body
+	<textarea id="post-body" maxlength="710"></textarea>
+	</label>
 	<a href="#" id="submit">Submit</a>
 
 
@@ -27,17 +30,17 @@
 	var canvas = $('#canvas');
 	var ctx = canvas.get(0).getContext('2d');
 
-	$('#text').keyup(function (e) {
+	$('#post-body').keyup(function (e) {
 	  e.preventDefault();
 	  
-	  var text = $('#text').val(),
-	      fontSize = 16,
-	      width = 440,
-	      lines = [],
-	      line = '',
-	      lineTest = '',
-	      words = text.split(' '),
-	      currentY = 0;
+	  var text = $('#post-body').val(),
+      fontSize = 16,
+      width = 440,
+      lines = [],
+      line = '',
+      lineTest = '',
+      words = text.split(' '),
+      currentY = 0;
 	  
 	  ctx.font = fontSize + 'px Helvetica';
 	  
@@ -90,10 +93,14 @@
 		var dataURL = canvas.toDataURL("image/png");
 		// Get our file
 	  var file = dataURLtoBlob(dataURL);
+	  var postBody = $('#post-body').val();
+	  var postTitle = $('#post-title').val();
 	  // Create new form data
 	  var fd = new FormData();
 	  // Append our Canvas image file to the form data
 	  fd.append("user[image_data]", file);
+	  fd.append("user[post_title]", postTitle);
+	  fd.append("user[post_body]", postBody);
 	  // And send it
 	  $.ajax({
 	     url: "/tweet",

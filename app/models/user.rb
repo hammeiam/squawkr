@@ -1,6 +1,6 @@
-require 'tempfile'
-
 class User < ActiveRecord::Base
+	has_many :posts
+	
   def self.create_with_omniauth(auth)
     create! do |user|
       user.uid = auth["uid"]
@@ -19,16 +19,8 @@ class User < ActiveRecord::Base
       config.oauth_token_secret = self.secret
     end
 
-  #   img = Tempfile.new(['temp_image','.png'], Dir.tmpdir, 'wb')
-		
-		# byebug
-		# img.write(image_data.read)
-
-		
-
-    
     # client.update(message)
+    # how can I be sure that the image_data.tempfile is being deleted?
     client.update_with_media('test message', image_data.tempfile)
-    # img.close! # closes and deletes the temp file 
   end
 end
