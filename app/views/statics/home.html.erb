@@ -40,7 +40,7 @@
 	      currentY = 0;
 	  
 	  ctx.font = fontSize + 'px Helvetica';
-	  ctx.fillStyle = "rgb(41, 47, 51);"
+	  
 	    
 	  for (var i = 0, len = words.length; i < len; i++) {
 	    lineTest = line + words[i] + ' ';
@@ -65,8 +65,10 @@
 	  }
 	  
 	  // Visually output text
-	  ctx.clearRect(0, 0, 440, 220);
+	  ctx.fillStyle = "white"
+	  ctx.fillRect(0, 0, 440, 220);
 	  for (var i = 0, len = lines.length; i < len; i++) {
+	  	ctx.fillStyle = "rgb(41, 47, 51);"
 	    ctx.fillText(lines[i].text, 0, lines[i].height);
 	  }
 	});
