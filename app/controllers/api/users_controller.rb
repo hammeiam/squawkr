@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class Api::UsersController < Api::ApiController
 	def tweet
     if signed_in?
       # message = user_params[:tweet_body]
@@ -30,6 +30,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = User.find(params[:id])
   	@posts = current_user.posts
   end
 

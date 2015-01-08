@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
   root 'statics#home'
+
   match "/tweet", to: "users#tweet", via: [:post], as: :tweet
   get "/logout", to: "sessions#destroy", as: :logout
-  
   get "/auth/:provider/callback", to: "sessions#create"
-  resources :users do 
-    resources :posts, only: :show
+  namespace :api, defaults: { format: :json } do
+    resources :users do 
+      resources :posts, only: [:show, :index]
+    end
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

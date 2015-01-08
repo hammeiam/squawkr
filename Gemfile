@@ -27,7 +27,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
 # gem 'unicorn'
@@ -39,10 +39,13 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 gem 'omniauth'
 gem 'omniauth-twitter'
-gem 'rails_12factor'
 gem 'twitter'
 gem 'twitter-text'
 gem 'figaro'
+gem 'backbone-on-rails'
+gem 'bootstrap-sass', '~> 3.3.1'
+gem 'autoprefixer-rails'
+gem 'json'
 
 group :development do
 	gem 'better_errors'
@@ -50,4 +53,8 @@ group :development do
 	gem 'binding_of_caller'
 	gem 'annotate'
 	gem 'seed_dump'
+end
+
+group :production do
+	gem 'rails_12factor'
 end
