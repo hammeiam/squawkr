@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
   root 'statics#home'
 
-  match "/tweet", to: "users#tweet", via: [:post], as: :tweet
-  get "/logout", to: "sessions#destroy", as: :logout
+  # match "/tweet", to: "users#tweet", module: "api", controller: "users", via: [:post], as: :tweet
+  # get "/logout", to: "sessions#destroy", as: :logout
   get "/auth/:provider/callback", to: "sessions#create"
+  resource :session, only: [:destroy]
   namespace :api, defaults: { format: :json } do
     resources :users do 
-      resources :posts, only: [:show, :index]
+      resources :posts, only: [:show, :index, :create]
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

@@ -101,13 +101,14 @@
 	  // Create new form data
 	  var fd = new FormData();
 	  // Append our Canvas image file to the form data
-	  fd.append("user[image_data]", file);
-	  fd.append("user[post_title]", postTitle);
-	  fd.append("user[post_body]", postBody);
+	  fd.append("post[image_data]", file);
+	  fd.append("post[post_title]", postTitle);
+	  fd.append("post[post_body]", postBody);
 	  // And send it
 	  $.ajax({
-	     url: "/tweet",
-	     type: "POST",
+	     // url: "/tweet",
+	     url: "/api/users/" + currentUser.id + "/posts",
+	     type: "POST", 
 	     data: fd,
 	     processData: false,
 	     contentType: false,

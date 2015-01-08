@@ -1,0 +1,1 @@
+json.partial! partial: 'api/posts/show', collection: @posts, as: :post
