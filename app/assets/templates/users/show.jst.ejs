@@ -9,18 +9,6 @@
 			<% }) %>
 		</ul>
 	</ul>
-	<!-- <canvas id="canvas" width="440" height="220" style="display: none"></canvas> -->
-
-	<% if(user === Bitter.users.currentUser()){ %>
-	<label>Post Title
-		<input type="text" id="post-title">
-	</label>
-	<label>Post Body
-	<textarea id="post-body" maxlength="710"></textarea>
-	</label>
-	<a href="#" id="submit">Submit</a>
-
-	<% }; %>
 	<div id="user-posts-container"></div>
 </div>		
 	<!-- <form action="/tweet">
@@ -29,88 +17,3 @@
 		  <input type="text" name="user[tweet_body]">
 		  <input type="submit" value="Submit">
 	</form> -->
-	
-
-
-
-
-<script type="text/javascript">
-	// var canvas = $('#canvas');
-	// var ctx = canvas.get(0).getContext('2d');
-
-	// $('#post-body').keyup(function (e) {
-	//   e.preventDefault();
-	  
-	//   var text = $('#post-body').val(),
- //      fontSize = 14,
- //      width = 440,
- //      lines = [],
- //      line = '',
- //      lineTest = '',
- //      words = text.split(' '),
- //      currentY = 0;
-	  
-	//   ctx.font = fontSize + 'px Helvetica';
-	  
-	    
-	//   for (var i = 0, len = words.length; i < len; i++) {
-	//     lineTest = line + words[i] + ' ';
-	    
-	//     // Check total width of line or last word
-	//     if (ctx.measureText(lineTest).width > width) {
-	//       // Calculate the new height
-	//       currentY = lines.length * (fontSize + 4) + fontSize;
-
-	//       // Record and reset the current line
-	//       lines.push({ text: line, height: currentY });
-	//       line = words[i] + ' ';
-	//     } else {
-	//       line = lineTest;
-	//     }
-	//   }
-	  
-	//   // Catch last line in-case something is left over
-	//   if (line.length > 0) {
-	//     currentY = lines.length * (fontSize + 4) + fontSize;
-	//     lines.push({ text: line.trim(), height: currentY });
-	//   }
-	  
-	//   // Visually output text
-	//   ctx.fillStyle = "white"
-	//   ctx.fillRect(0, 0, 440, 220);
-	//   for (var i = 0, len = lines.length; i < len; i++) {
-	//   	ctx.fillStyle = "rgb(41, 47, 51);"
-	//     ctx.fillText(lines[i].text, 0, lines[i].height);
-	//   }
-	// });
-	
-
-	// $('#submit').click(function(e){
-	// 	e.preventDefault();
-	// 	var canvas = $('#canvas')[0];
-	// 	var dataURL = canvas.toDataURL("image/png");
-	// 	// Get our file
-	//   var file = dataURLtoBlob(dataURL);
-	//   var postBody = $('#post-body').val();
-	//   var postTitle = $('#post-title').val();
-	//   debugger
-	//   // Create new form data
-	//   var fd = new FormData();
-	//   // Append our Canvas image file to the form data
-	//   fd.append("post[image_data]", file);
-	//   fd.append("post[post_title]", postTitle);
-	//   fd.append("post[post_body]", postBody);
-	//   // And send it
-	//   $.ajax({
-	//      // url: "/tweet",
-	//      url: "/api/users/" + currentUser.id + "/posts",
-	//      type: "POST", 
-	//      data: fd,
-	//      processData: false,
-	//      contentType: false,
-	//      success: {}
-	//   });
-	// });
-
-	
-</script>

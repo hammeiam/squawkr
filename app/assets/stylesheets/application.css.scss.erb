@@ -31,6 +31,7 @@ body {
 
 ul {
 	list-style-type: none;
+	padding: 0;
 }
 
 .right {
@@ -39,6 +40,10 @@ ul {
 
 .left {
 	float: left;
+}
+
+.alert{
+	margin: 0;
 }
 
 #content-wrapper{
@@ -53,8 +58,9 @@ nav {
 	padding-top: 15px;
 	background-color: #16a085;
 	color: #ecf0f1;
-	a {
+	a, a:hover, a:focus {
 		color: white;
+		text-decoration: none;
 	}
 	ul{
 		/*list-style-type: none;*/
@@ -110,10 +116,22 @@ p.page-post {
 }
 
 /* MODALS */
+.modal {
+	text-align: center;
+}
 .modal-content {
 	text-align: center;
+	display: inline-block;
 	h4 {
 		color: rgba(0, 0, 0, 0.4);;
+	}
+	textarea {
+		@extend p.page-post;
+		padding: 6px 12px;
+		width: 464px; /*width is 440 + padding*/
+	}
+	.form-control {
+		border-radius: 0;
 	}
 }
 

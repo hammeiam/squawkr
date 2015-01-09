@@ -88,6 +88,7 @@ Bitter.Views.Nav = Backbone.View.extend({
 	  fd.append("post[post_title]", postTitle);
 	  fd.append("post[post_body]", postBody);
 	  // And send it
+	  var posts = this.collection;
 	  $.ajax({
 	     // url: "/tweet",
 	     url: "/api/users/" + Bitter.users.currentUser().get('username') + "/posts",
@@ -95,6 +96,28 @@ Bitter.Views.Nav = Backbone.View.extend({
 	     data: fd,
 	     processData: false,
 	     contentType: false,
+	     success: function(resp){
+	     	if(!!resp['success']){
+          $('#signInModal').modal('hide');
+          // addresses a bug with some browsers & bootstrap
+          $('body').removeClass('modal-open');
+          var options = {
+          	alertClass: 'alert-success',
+          	alertMessage: 'Post Created!'
+          };
+          showAlert(options);
+          posts.fetch();
+        } else {
+          resp['errors'].forEach(function(message){
+          	var options = {
+              alertClass: 'alert-warning',
+              alertMessage: message,
+              alertLocation: '#new-post-alerts-container-modal'
+            };
+            showAlert(options);
+          });
+        }
+	     }
 	  });
 	}
 });
