@@ -22,7 +22,9 @@ module Api
 	        	image: post_params[:image_data],
 	        	title: post_params[:post_title],
 	        	body: post_params[:post_body],
+	        	hashtags: post_params[:post_hashtags],
 	  				post_url: post_url
+
 	        }
 	        sent_tweet = current_user.tweet(data)
 	        
@@ -42,7 +44,7 @@ module Api
 		end
 
 		def post_params
-			params.require(:post).permit(:post_body, :post_title, :image_data)
+			params.require(:post).permit(:post_body, :post_title, :post_hashtags, :image_data)
 		end
 	end
 end

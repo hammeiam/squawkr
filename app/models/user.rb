@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
       config.access_token = self.token
       config.access_token_secret = self.secret
     end
-    message = [data[:title], data[:post_url]].join(' ')
+    message = [data[:title], data[:hashtags], data[:post_url]].join(' ')
 
     # client.update(message)
     # how can I be sure that the image_data.tempfile is being deleted?
