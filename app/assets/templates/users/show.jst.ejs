@@ -1,14 +1,12 @@
 <div id="nav-container"></div>
 <div id="content-wrapper">
-	<ul>
-		<li><%= user.get(['name']) %></li>
-		<li><%= user.get(['username']) %></li>
-		<ul>
-			<% posts.each(function(post){ %>
-				<li><%= post.get(['title']) %></li>
-			<% }) %>
-		</ul>
-	</ul>
+	<div class="user-profile-container">
+		<img src="<%= user.get('image_url') %>" class="profile-image">
+		<div class="user-profile-text">
+			<p><%= user.escape(['name']) %></p>
+			<p><%= user.escape(['username']) %></p>
+		</div>
+	</div>
 	<div id="user-posts-container"></div>
 </div>		
 	<!-- <form action="/tweet">

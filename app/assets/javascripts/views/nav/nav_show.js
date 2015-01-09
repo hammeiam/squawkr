@@ -25,7 +25,6 @@ Bitter.Views.Nav = Backbone.View.extend({
 		var newPostModal = this.newPostModal()
 		this.$el.html(content);
 		this.$el.append(newPostModal);
-		debugger
   	// this.focusModals();
 		return this;
 	},

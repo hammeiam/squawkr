@@ -72,11 +72,10 @@ nav {
 		li {
 			display: inline-block;
 			margin: 0 10px;
-			/*span {
-				position: absolute;
-			  bottom: 0;
-			  right: 0;
-			}*/
+			span {
+				display: inline-block;
+				vertical-align: text-top;
+			}
 		}
 	}
 }
@@ -91,6 +90,7 @@ h1.logo {
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 30px;
 	display: inline-block;
+	margin: 0;
 }
 
 /* PAGE: POST */
@@ -113,6 +113,27 @@ p.page-post {
 	font-family: helvetica, sans-serif;
 	/*color: #292F33;*/
 	color: $LIGHTBLACK;
+}
+
+.user-profile-container {
+	padding: 15px;
+	background: white;
+	border-bottom: 1px solid lightgrey;
+	border-left: 1px solid lightgrey;
+	border-right: 1px solid lightgrey;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	.profile-image {
+		width: 48px;
+		height: 48px;
+	}
+	.user-profile-text {
+		display: inline-block;
+	}
+	img {
+		vertical-align: inherit;
+	}
 }
 
 /* MODALS */
