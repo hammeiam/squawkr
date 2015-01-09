@@ -3,8 +3,18 @@
 	<div class="user-profile-container">
 		<img src="<%= user.get('image_url') %>" class="profile-image">
 		<div class="user-profile-text">
-			<p><%= user.escape(['name']) %></p>
-			<p><%= user.escape(['username']) %></p>
+			<p>
+				<strong>
+				<a href="#u/<%= user.escape('username') %>">
+					<%= user.escape(['name']) %>
+				</a>
+				</strong>
+			</p>
+			<p>
+				<a href="<%= user.escape('twitter_url') %>">
+					@<%= user.escape(['username']) %>
+				</a>
+			</p>
 		</div>
 	</div>
 	<div id="user-posts-container"></div>

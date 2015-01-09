@@ -19,6 +19,7 @@
 
 $MINWIDTH: 460px;
 $LIGHTBLACK: rgba(0, 0, 0, 0.8);
+$GREY: rgba(0, 0, 0, 0.4);
 
 body, html {
 	margin: 0;
@@ -112,25 +113,38 @@ p.page-post {
 	font-size: 14px;
 	line-height: 18px;
 	font-family: helvetica, sans-serif;
-	/*color: #292F33;*/
 	color: $LIGHTBLACK;
+}
+span.page-post {
+	font-style: italic;
+	font-family: helvetica, sans-serif;
+	color: $GREY;
 }
 
 .user-profile-container {
 	padding: 15px;
 	background: white;
+	vertical-align: top;
 	border-bottom: 1px solid lightgrey;
 	border-left: 1px solid lightgrey;
 	border-right: 1px solid lightgrey;
-	border-radius: 5px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	border-bottom-left-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+	border-bottom-right-radius: 5px;
 	.profile-image {
 		width: 48px;
 		height: 48px;
 	}
 	.user-profile-text {
 		display: inline-block;
+		margin-left: 15px;
+		& > * {
+			margin: 0;
+		}
+
 	}
 	img {
 		vertical-align: inherit;
@@ -145,7 +159,7 @@ p.page-post {
 	text-align: center;
 	display: inline-block;
 	h4 {
-		color: rgba(0, 0, 0, 0.4);;
+		color: $GREY;
 	}
 	textarea {
 		@extend p.page-post;
