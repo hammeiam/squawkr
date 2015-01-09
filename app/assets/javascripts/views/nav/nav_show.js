@@ -5,7 +5,9 @@ Bitter.Views.Nav = Backbone.View.extend({
 	newPostModal: JST['modals/newPost'],
 	initialize: function(options){
 		// address excessive rendering of nav
-		this.posts = options.posts;
+		if(!!Bitter.users.currentUser()){
+			this.posts = Bitter.users.currentUser().posts;
+		}
 		this.listenTo(this.collection, 'sync add remove change reset', this.render);
 	},
 

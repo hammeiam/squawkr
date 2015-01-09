@@ -11,10 +11,10 @@ Bitter.Routers.Posts = Backbone.Router.extend({
 		'*notFound': 'notFound'
 	},
 
-	// front: function(){
-	// 	var view; //a = new Bitter.Views.FrontPage();
-	// 	this._swapView(view);
-	// },
+	front: function(){
+		var view = new Bitter.Views.FrontShow();
+		this._swapView(view);
+	},
 
 	post: function(username, post_id){
 		// var user = Bitter.users.getOrFetch()

@@ -9,9 +9,7 @@
 <body>
 	<script type="text/javascript">
 		<% if current_user %>
-			var currentUser = new Bitter.Models.User({ id: <%= current_user.id %> })
-			Bitter.users.add(currentUser);
-			currentUser.fetch();
+			var currentUser = Bitter.users.getOrFetch('<%= current_user.username %>')
 		<% end %>
 	</script>
 

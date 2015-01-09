@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'statics#home'
+  root to: 'statics#home'
 
   # match "/tweet", to: "users#tweet", module: "api", controller: "users", via: [:post], as: :tweet
   # get "/logout", to: "sessions#destroy", as: :logout

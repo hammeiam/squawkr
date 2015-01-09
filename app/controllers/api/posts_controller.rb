@@ -5,7 +5,7 @@ module Api
 		end
 
 		def index
-			@posts = User.find_by_username(params[:user_username]).posts.all
+			@posts = User.find_by_username(params[:user_username]).posts.all.order(created_at: :desc)
 		end
 
 		def create
