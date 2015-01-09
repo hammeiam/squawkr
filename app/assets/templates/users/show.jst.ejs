@@ -1,25 +1,28 @@
 <div id="nav-container"></div>
-<ul>
-	<li><%= user.get(['name']) %></li>
-	<li><%= user.get(['username']) %></li>
+<div id="content-wrapper">
 	<ul>
-		<% posts.each(function(post){ %>
-			<li><%= post.get(['title']) %></li>
-		<% }) %>
+		<li><%= user.get(['name']) %></li>
+		<li><%= user.get(['username']) %></li>
+		<ul>
+			<% posts.each(function(post){ %>
+				<li><%= post.get(['title']) %></li>
+			<% }) %>
+		</ul>
 	</ul>
-</ul>
-<% if(!!currentUser){ %>
-<canvas id="canvas" width="440" height="220" style="display: none"></canvas>
-<label>Post Title
-	<input type="text" id="post-title">
-</label>
-<label>Post Body
-<textarea id="post-body" maxlength="710"></textarea>
-</label>
-<a href="#" id="submit">Submit</a>
+	<canvas id="canvas" width="440" height="220" style="display: none"></canvas>
 
-<% }; %>
-<div id="user-posts-container"></div>
+	<% if(user === Bitter.users.currentUser()){ %>
+	<label>Post Title
+		<input type="text" id="post-title">
+	</label>
+	<label>Post Body
+	<textarea id="post-body" maxlength="710"></textarea>
+	</label>
+	<a href="#" id="submit">Submit</a>
+
+	<% }; %>
+	<div id="user-posts-container"></div>
+</div>		
 	<!-- <form action="/tweet">
 			<input type="hidden" name="authenticity_token"
 		    value="form_authenticity_token ">

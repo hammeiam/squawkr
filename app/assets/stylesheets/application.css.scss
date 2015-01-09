@@ -1,0 +1,78 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+$MINWIDTH: 460px;
+
+body, html {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: #ecf0f1;
+}
+
+ul {
+	list-style-type: none;
+}
+
+nav {
+	height: 45px;
+	width: 100%;
+	padding-top: 15px;
+	background-color: #16a085;
+	color: #ecf0f1;
+	a {
+
+	}
+	ul{
+		/*list-style-type: none;*/
+		/*max-width: 600px;*/
+		max-width: 60%;
+		min-width: $MINWIDTH;
+		margin: 0 20%;
+		li {
+			display: inline-block;
+			&.right {
+				float: right;
+			}
+			&.left {
+				float: left;
+			}
+		}
+	}
+}
+#content-wrapper{
+	width: $MINWIDTH;
+	margin: 0 auto;
+}
+
+
+.page-post-container {
+	padding: 15px;
+	background: white;
+	border: 1px solid lightgrey;
+}
+p.post-page {
+	width: 440px;
+	font-size: 14px;
+	line-height: 18px;
+	font-family: 'helvetica neue', helvetica, sans-serif;
+}
+
+

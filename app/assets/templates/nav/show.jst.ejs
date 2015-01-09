@@ -1,8 +1,8 @@
 <ul>
-	<li>Website!</li>
+	<li class="left">Website!</li>
 	<% if(!!currentUser){ %>
-	<li><a href="javascript:void(0)" id="signOut">Sign Out</a></li>
+	<li class="right"><a href="javascript:void(0)" id="signOut">Sign Out</a></li>
 	<% } else{ %>
-	<li><a href="/auth/twitter">Sign In</a></li>
+	<li class="right"><a href="/auth/twitter">Sign In</a></li>
 	<% }; %>
 </ul>

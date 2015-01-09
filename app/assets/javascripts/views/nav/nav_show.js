@@ -1,6 +1,6 @@
 Bitter.Views.Nav = Backbone.View.extend({
 	tagName: 'nav',
-	className: 'navbar navbar-default',
+	// className: 'navbar navbar-default',
 	template: JST['nav/show'],
 	initialize: function(options){
 		// address excessive rendering of nav

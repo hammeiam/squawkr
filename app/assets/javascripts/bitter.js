@@ -5,7 +5,7 @@ window.Bitter = {
   Routers: {},
   initialize: function() {
     new Bitter.Routers.Posts({
-    	$rootEl: $('#content-wrapper')
+    	$rootEl: $('#page-wrapper')
     })
     Backbone.history.start();
   }
