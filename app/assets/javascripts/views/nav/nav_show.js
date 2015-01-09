@@ -2,13 +2,16 @@ Bitter.Views.Nav = Backbone.View.extend({
 	tagName: 'nav',
 	// className: 'navbar navbar-default',
 	template: JST['nav/show'],
+	newPostModal: JST['modals/newPost'],
 	initialize: function(options){
 		// address excessive rendering of nav
 		this.listenTo(this.collection, 'sync add remove change reset', this.render);
 	},
 
 	events: {
-		'click #signOut': 'signOut'
+		'click #signOutAction': 'signOut',
+		// 'click #newPostAction': 'signOut',
+		'submit form#create-new-post': 'createNewPost'
 	},
 
 	signOut: function(){
@@ -19,8 +22,79 @@ Bitter.Views.Nav = Backbone.View.extend({
 		var content = this.template({
 			currentUser: Bitter.users.currentUser()
 		});
+		var newPostModal = this.newPostModal()
 		this.$el.html(content);
+		this.$el.append(newPostModal);
+		debugger
+  	// this.focusModals();
 		return this;
-	}
+	},
 
+	createNewPost: function(e){
+		e.preventDefault();
+
+	  var canvas = $('#canvas');
+		var ctx = canvas.get(0).getContext('2d');
+	  var text = $('#post-body').val(),
+      fontSize = 14,
+      width = 440,
+      lines = [],
+      line = '',
+      lineTest = '',
+      words = text.split(' '),
+      currentY = 0;
+	  
+	  ctx.font = fontSize + 'px Helvetica';
+	  
+	  for (var i = 0, len = words.length; i < len; i++) {
+	    lineTest = line + words[i] + ' ';
+	    
+	    // Check total width of line or last word
+	    if (ctx.measureText(lineTest).width > width) {
+	      // Calculate the new height
+	      currentY = lines.length * (fontSize + 4) + fontSize;
+
+	      // Record and reset the current line
+	      lines.push({ text: line, height: currentY });
+	      line = words[i] + ' ';
+	    } else {
+	      line = lineTest;
+	    }
+	  };
+	  
+	  // Catch last line in-case something is left over
+	  if (line.length > 0) {
+	    currentY = lines.length * (fontSize + 4) + fontSize;
+	    lines.push({ text: line.trim(), height: currentY });
+	  };
+	  
+	  // Visually output text
+	  ctx.fillStyle = "white";
+	  ctx.fillRect(0, 0, 440, 220);
+	  for (var i = 0, len = lines.length; i < len; i++) {
+	  	ctx.fillStyle = "rgb(41, 47, 51);"
+	    ctx.fillText(lines[i].text, 0, lines[i].height);
+	  };
+	  var canvasEl = $('#canvas')[0];
+		var dataURL = canvasEl.toDataURL("image/png");
+		// Get our file
+	  var file = dataURLtoBlob(dataURL);
+	  var postBody = $('#post-body').val();
+	  var postTitle = $('#post-title').val();
+	  // Create new form data
+	  var fd = new FormData();
+	  // Append our Canvas image file to the form data
+	  fd.append("post[image_data]", file);
+	  fd.append("post[post_title]", postTitle);
+	  fd.append("post[post_body]", postBody);
+	  // And send it
+	  $.ajax({
+	     // url: "/tweet",
+	     url: "/api/users/" + Bitter.users.currentUser().get('username') + "/posts",
+	     type: "POST", 
+	     data: fd,
+	     processData: false,
+	     contentType: false,
+	  });
+	}
 });

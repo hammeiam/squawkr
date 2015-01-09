@@ -1,7 +1,19 @@
 <ul>
-	<li class="left">Website!</li>
+	<li class="left">
+		<span><a href="/"><h1 class="logo">squawkr</h1></a></span>
+	</li>
 	<% if(!!currentUser){ %>
-	<li class="right"><a href="javascript:void(0)" id="signOut">Sign Out</a></li>
+	<li class="right">
+		<span>
+			<a href="javascript:void(0)" id="signOutAction">Sign Out</a>
+		</span>
+	</li>
+	<li class="right">
+		<span>
+			<!-- <a href="javascript:void(0)" id="newPostAction">Create New Post</a> -->
+			<a href="#newPostModal" data-toggle="modal" id="newPostAction">Create New Post</a>
+		</span>
+	</li>
 	<% } else{ %>
 	<li class="right"><a href="/auth/twitter">Sign In</a></li>
 	<% }; %>

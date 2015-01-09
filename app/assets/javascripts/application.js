@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require underscore
 //= require backbone
+//= require bootstrap-sprockets
 //= require bitter
 //= require jquery.serializejson.min.js
 //= require_tree ../templates

@@ -15,8 +15,10 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import url(http://fonts.googleapis.com/css?family=Roboto:900);
 
 $MINWIDTH: 460px;
+$LIGHTBLACK: rgba(0, 0, 0, 0.8);
 
 body, html {
 	margin: 0;
@@ -24,13 +26,27 @@ body, html {
 }
 
 body {
-	background-color: #ecf0f1;
+	/*background-color: #ecf0f1;*/
 }
 
 ul {
 	list-style-type: none;
 }
 
+.right {
+	float: right;
+}
+
+.left {
+	float: left;
+}
+
+#content-wrapper{
+	width: $MINWIDTH;
+	margin: 0 auto;
+}
+
+/* NAV */
 nav {
 	height: 45px;
 	width: 100%;
@@ -38,7 +54,7 @@ nav {
 	background-color: #16a085;
 	color: #ecf0f1;
 	a {
-
+		color: white;
 	}
 	ul{
 		/*list-style-type: none;*/
@@ -46,33 +62,60 @@ nav {
 		max-width: 60%;
 		min-width: $MINWIDTH;
 		margin: 0 20%;
+		padding: 0;
 		li {
 			display: inline-block;
-			&.right {
-				float: right;
-			}
-			&.left {
-				float: left;
-			}
+			margin: 0 10px;
+			/*span {
+				position: absolute;
+			  bottom: 0;
+			  right: 0;
+			}*/
 		}
 	}
 }
-#content-wrapper{
-	width: $MINWIDTH;
-	margin: 0 auto;
+
+h1.logo {
+	/*background-image:  url(<%= asset_path 'squawkr-logo-small.png' %>);
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 126px;
+	height: 35px;*/
+	color: white;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 30px;
+	display: inline-block;
 }
 
-
+/* PAGE: POST */
 .page-post-container {
 	padding: 15px;
 	background: white;
-	border: 1px solid lightgrey;
+	border-bottom: 1px solid lightgrey;
 }
-p.post-page {
+h1.page-post a {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 700;
+	font-size: 28px;
+	color: $LIGHTBLACK;
+	text-decoration: none;
+}
+p.page-post {
 	width: 440px;
 	font-size: 14px;
 	line-height: 18px;
-	font-family: 'helvetica neue', helvetica, sans-serif;
+	font-family: helvetica, sans-serif;
+	/*color: #292F33;*/
+	color: $LIGHTBLACK;
 }
+
+/* MODALS */
+.modal-content {
+	text-align: center;
+	h4 {
+		color: rgba(0, 0, 0, 0.4);;
+	}
+}
+
 
 
