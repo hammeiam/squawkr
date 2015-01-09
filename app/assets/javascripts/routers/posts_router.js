@@ -17,8 +17,13 @@ Bitter.Routers.Posts = Backbone.Router.extend({
 	},
 
 	post: function(username, post_id){
-		// var user = Bitter.users.getOrFetch()
-		var post = Bitter.posts.getOrFetch(post_id)
+		var user = Bitter.users.getOrFetch(username);
+		var post = user.posts.getOrFetch(post_id);
+		var view = new Bitter.Views.PostShow({
+			model: post,
+			user: user
+		});
+		this._swapView(view);
 	},
 
 	user: function(username){

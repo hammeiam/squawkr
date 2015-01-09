@@ -1,11 +1,11 @@
 Bitter.Collections.Posts = Backbone.Collection.extend({
-  // url is defined in router
+  // url is defined in user.js
   model: Bitter.Models.Post,
   getOrFetch: function(id){
   	var model = this.get(id);
   	var that = this;
   	if(!model){
-  		model = new LairBnB.Models.Post({ id: id });
+  		model = new Bitter.Models.Post({ id: id, user: that.user });
   		model.fetch({
   			success: function(){ that.add(model) }
   		})

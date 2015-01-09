@@ -1,0 +1,29 @@
+<div id="nav-container"></div>
+<div id="content-wrapper">
+	<div class="page-post-container">
+		<h2 class="page-post">
+			<a href="<%= url %>"><%= post.escape('post_title') %></a>
+		</h2>
+		<p class="page-post">
+			<%= post.escape('post_body') %>
+		</p>
+		<span class="page-post"><%= post.escape('creation_date') %> ago</span>
+	</div>
+	<div class="user-profile-container">
+		<img src="<%= user.get('image_url') %>" class="profile-image">
+		<div class="user-profile-text">
+			<p>
+				<strong>
+				<a href="#u/<%= user.escape('username') %>">
+					<%= user.escape(['name']) %>
+				</a>
+				</strong>
+			</p>
+			<p>
+				<a href="<%= user.escape('twitter_url') %>">
+					@<%= user.escape(['username']) %>
+				</a>
+			</p>
+		</div>
+	</div>
+</div>
