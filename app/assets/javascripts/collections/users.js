@@ -2,11 +2,11 @@ Bitter.Collections.Users = Backbone.Collection.extend({
 	url: '/api/users',
   model: Bitter.Models.User,
 
-  getOrFetch: function(id){
-  	var model = this.get(id);
+  getOrFetch: function(username_id){
+  	var model = this.get(username_id);
   	var that = this;
   	if(!model){
-  		model = new LairBnB.Models.User({ id: id });
+      model = new Bitter.Models.User({ username: username_id });
   		model.fetch({
   			success: function(){ that.add(model) }
   		})

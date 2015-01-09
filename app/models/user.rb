@@ -3,6 +3,10 @@ class User < ActiveRecord::Base
 	has_many :posts
 	before_validation :ensure_session_token
 
+  # def to_param
+  #   username
+  # end
+
   def self.create_with_omniauth(auth)
     create! do |user|
       user.uid = auth["uid"]

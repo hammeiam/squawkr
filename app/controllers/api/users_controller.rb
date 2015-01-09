@@ -31,8 +31,12 @@ module Api
     end
 
     def show
-      @user = User.find(params[:id])
+      @user = User.find_by_username(params[:username])
     	@posts = @user.posts
+    end
+
+    def index
+      @users = User.all
     end
 
     def user_params

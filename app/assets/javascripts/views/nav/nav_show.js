@@ -1,21 +1,21 @@
-LairBnB.Views.HomeNav = Backbone.View.extend({
+Bitter.Views.Nav = Backbone.View.extend({
 	tagName: 'nav',
 	className: 'navbar navbar-default',
 	template: JST['nav/show'],
 	initialize: function(options){
-		// this.model may not work, use Bitter.users instead
-		this.listenTo(this.model, 'change', this.render);
+		// address excessive rendering of nav
+		this.listenTo(this.collection, 'sync add remove change reset', this.render);
 	},
 
 	events: {
-		'click #signOut': 'signOut',
+		'click #signOut': 'signOut'
 	},
 
 	signOut: function(){
-		LairBnB.users.signOut();
+		Bitter.users.signOut();
 	},
 
-	render: fuction(){
+	render: function(){
 		var content = this.template({
 			currentUser: Bitter.users.currentUser()
 		});
