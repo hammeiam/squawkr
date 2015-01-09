@@ -2,15 +2,8 @@
 <main id="content-wrapper"></main>
 
 <% if signed_in? %>
-	<ul>
-		<li><%= current_user.uid %></li>
-		<li><%= current_user.name %></li>
-		<li><%= current_user.username %></li>
-		<li><%= current_user.token %></li>
-		<li><%= current_user.secret %></li>
-	</ul>
 
-	<canvas id="canvas" width="440" height="220" style="display: none"></canvas>
+
 
 	<!-- <form action="/tweet">
 			<input type="hidden" name="authenticity_token"
@@ -18,13 +11,7 @@
 		  <input type="text" name="user[tweet_body]">
 		  <input type="submit" value="Submit">
 	</form> -->
-	<label>Post Title
-		<input type="text" id="post-title">
-	</label>
-	<label>Post Body
-	<textarea id="post-body" maxlength="710"></textarea>
-	</label>
-	<a href="#" id="submit">Submit</a>
+	
 
 
 
