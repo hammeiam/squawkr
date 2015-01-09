@@ -14,6 +14,11 @@
 			<a href="#newPostModal" data-toggle="modal" id="newPostAction">Create New Post</a>
 		</span>
 	</li>
+	<li class="right">
+		<a href="#u/<%= currentUser.escape('username') %>">
+			<img src="<%= currentUser.escape('image_url') %>">
+		</a>
+	</li>
 	<% } else{ %>
 	<li class="right"><a href="/auth/twitter">Sign In</a></li>
 	<% }; %>
