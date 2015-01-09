@@ -25,6 +25,10 @@ module Api
 	  				post_url: post_url
 	        }
 	        sent_tweet = current_user.tweet(data)
+	        @post.update({
+	        	tweet_uid: sent_tweet.id,
+	        	twitter_url: sent_tweet.url
+	        	})
 
 	        # redirect_to root_url, :notice => "I tweeted that."
 	        render json: { success: sent_tweet.url }
