@@ -17,13 +17,13 @@ ActiveRecord::Schema.define(version: 20150109175721) do
   enable_extension "plpgsql"
 
   create_table "posts", force: true do |t|
-    t.integer  "user_id",     null: false
-    t.text     "post_body",   null: false
-    t.string   "post_title",  null: false
+    t.integer  "user_id",               null: false
+    t.text     "post_body",             null: false
+    t.string   "post_title",            null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "twitter_url"
-    t.integer  "tweet_uid"
+    t.integer  "tweet_uid",   limit: 8
   end
 
   add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree

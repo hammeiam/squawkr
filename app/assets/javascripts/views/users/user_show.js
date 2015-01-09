@@ -1,7 +1,8 @@
 Bitter.Views.UserShow = Backbone.CompositeView.extend({
 	initialize: function(){
 		var navView = new Bitter.Views.Nav({
-			collection: Bitter.users
+			collection: Bitter.users,
+			posts: this.model.posts
 		});
 		var postsView = new Bitter.Views.PostsIndex({
 			collection: this.model.posts,

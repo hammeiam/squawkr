@@ -5,6 +5,7 @@ Bitter.Views.Nav = Backbone.View.extend({
 	newPostModal: JST['modals/newPost'],
 	initialize: function(options){
 		// address excessive rendering of nav
+		this.posts = options.posts;
 		this.listenTo(this.collection, 'sync add remove change reset', this.render);
 	},
 
@@ -31,8 +32,43 @@ Bitter.Views.Nav = Backbone.View.extend({
 
 	createNewPost: function(e){
 		e.preventDefault();
+		this.populateCanvas();
+		var postForm = this.createForm();
+	  var posts = this.posts;
 
-	  var canvas = $('#canvas');
+	  $.ajax({
+	     url: "/api/users/" + Bitter.users.currentUser().get('username') + "/posts",
+	     type: "POST", 
+	     data: postForm,
+	     processData: false,
+	     contentType: false,
+	     success: function(resp){
+	     	if(!!resp['success']){
+          $('#newPostModal').modal('hide');
+          // addresses a bug with some browsers & bootstrap
+          $('body').removeClass('modal-open');
+          var options = {
+          	alertClass: 'alert-success',
+          	alertMessage: 'Post Created!'
+          };
+          showAlert(options);
+          posts.fetch();
+        } else {
+          resp['errors'].forEach(function(message){
+          	var options = {
+              alertClass: 'alert-warning',
+              alertMessage: message,
+              alertLocation: '#new-post-alerts-container-modal'
+            };
+            showAlert(options);
+          });
+        }
+	     }
+	  });
+	},
+
+	populateCanvas: function(){
+		var canvas = $('#canvas');
 		var ctx = canvas.get(0).getContext('2d');
 	  var text = $('#post-body').val(),
       fontSize = 14,
@@ -74,49 +110,22 @@ Bitter.Views.Nav = Backbone.View.extend({
 	  	ctx.fillStyle = "rgb(41, 47, 51);"
 	    ctx.fillText(lines[i].text, 0, lines[i].height);
 	  };
-	  var canvasEl = $('#canvas')[0];
+	},
+
+	createForm: function(){
+		var canvasEl = $('#canvas')[0];
 		var dataURL = canvasEl.toDataURL("image/png");
 		// Get our file
 	  var file = dataURLtoBlob(dataURL);
 	  var postBody = $('#post-body').val();
 	  var postTitle = $('#post-title').val();
 	  // Create new form data
-	  var fd = new FormData();
+	  var postForm = new FormData();
 	  // Append our Canvas image file to the form data
-	  fd.append("post[image_data]", file);
-	  fd.append("post[post_title]", postTitle);
-	  fd.append("post[post_body]", postBody);
-	  // And send it
-	  var posts = this.collection;
-	  $.ajax({
-	     // url: "/tweet",
-	     url: "/api/users/" + Bitter.users.currentUser().get('username') + "/posts",
-	     type: "POST", 
-	     data: fd,
-	     processData: false,
-	     contentType: false,
-	     success: function(resp){
-	     	if(!!resp['success']){
-          $('#signInModal').modal('hide');
-          // addresses a bug with some browsers & bootstrap
-          $('body').removeClass('modal-open');
-          var options = {
-          	alertClass: 'alert-success',
-          	alertMessage: 'Post Created!'
-          };
-          showAlert(options);
-          posts.fetch();
-        } else {
-          resp['errors'].forEach(function(message){
-          	var options = {
-              alertClass: 'alert-warning',
-              alertMessage: message,
-              alertLocation: '#new-post-alerts-container-modal'
-            };
-            showAlert(options);
-          });
-        }
-	     }
-	  });
+	  postForm.append("post[image_data]", file);
+	  postForm.append("post[post_title]", postTitle);
+	  postForm.append("post[post_body]", postBody);
+	  return postForm;
 	}
+
 });
