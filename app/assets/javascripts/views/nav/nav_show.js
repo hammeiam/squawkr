@@ -121,7 +121,13 @@ Bitter.Views.Nav = Backbone.View.extend({
 	  var file = dataURLtoBlob(dataURL);
 	  var postBody = $('#post-body').val();
 	  var postTitle = $('#post-title').val();
-	  var hashtags = postBody.match(/#\w+/g).join(' ');
+	  var hashtagsArr = postBody.match(/#\w+/g) || [];
+	  if(hashtagsArr.length > 0){
+	  	var hashtags = hashtagsArr.join(' ');
+	  } else {
+	  	var hashtags = '';
+	  }
+	  
 	  // Create new form data
 	  var postForm = new FormData();
 	  // Append our Canvas image file to the form data

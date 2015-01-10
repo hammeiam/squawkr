@@ -16,7 +16,8 @@ module Api
         	post_body: post_params[:post_body])
 
         if @post.save
-        	post_url = api_user_post_url(current_user, @post)
+        	# post_url = api_user_post_url(current_user, @post)
+        	post_url = root_url + '#u/' + current_user.username + '/posts/' + @post.id.to_s
 
 	        data = {
 	        	image: post_params[:image_data],
