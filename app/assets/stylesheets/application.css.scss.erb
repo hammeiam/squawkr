@@ -20,10 +20,12 @@
 $MINWIDTH: 460px;
 $LIGHTBLACK: rgba(0, 0, 0, 0.8);
 $GREY: rgba(0, 0, 0, 0.4);
+$imgKey: <%= Random.rand(5) + 1 %>;
 
-body, html {
+body, html, main {
 	margin: 0;
 	padding: 0;
+	height: 100%;
 }
 
 body {
@@ -50,6 +52,34 @@ ul {
 #content-wrapper{
 	width: $MINWIDTH;
 	margin: 0 auto;
+}
+
+.front {
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	top: 45px;
+	left:0;
+	z-index: -1;
+	-webkit-box-shadow: inset 0px 0px 100px 10px rgba(0,0,0,0.75);
+-moz-box-shadow: inset 0px 0px 100px 10px rgba(0,0,0,0.75);
+box-shadow: inset 0px 0px 100px 10px rgba(0,0,0,0.75);
+
+	background: url("https://s3-us-west-1.amazonaws.com/squawkr/hero-background-#{$imgKey}-min.jpg") no-repeat center center fixed;
+	-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+  -webkit-filter: opacity(80%);
+  -moz-filter: opacity(80%);
+  -o-filter: opacity(80%);
+  -ms-filter: opacity(80%);
+  filter: opacity(80%);
 }
 
 /* NAV */
@@ -173,6 +203,19 @@ span.page-post {
 	}
 	.form-control {
 		border-radius: 0;
+	}
+}
+
+/* FRONT */
+.hero-content {
+	padding-top: 40px;
+	h1 {
+		font-size: 60px;
+	}
+	h1, h3 {
+		text-align: center;
+		color: white;
+		text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
 	}
 }
 
