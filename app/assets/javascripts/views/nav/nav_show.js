@@ -1,6 +1,6 @@
 Bitter.Views.Nav = Backbone.View.extend({
 	tagName: 'nav',
-	// className: 'navbar navbar-default',
+	// className: 'nav-main',
 	template: JST['nav/show'],
 	newPostModal: JST['modals/newPost'],
 	initialize: function(options){
@@ -14,11 +14,22 @@ Bitter.Views.Nav = Backbone.View.extend({
 	events: {
 		'click #signOutAction': 'signOut',
 		// 'click #newPostAction': 'signOut',
-		'submit form#create-new-post': 'createNewPost'
+		'submit form#create-new-post': 'createNewPost',
+		'focus #post-body-input': 'applyAutosize',
+		'hidden.bs.modal #newPostModal': 'clearField'
 	},
 
 	signOut: function(){
 		Bitter.users.signOut();
+	},
+
+	applyAutosize: function(e){
+		$(e.currentTarget).autosize();
+	},
+
+	clearField: function(e){
+		$(e.currentTarget).find('input').val('');
+		$(e.currentTarget).find('textarea').val('');
 	},
 
 	render: function(){
@@ -28,9 +39,13 @@ Bitter.Views.Nav = Backbone.View.extend({
 		var newPostModal = this.newPostModal();
 		this.$el.html(content);
 		this.$el.append(newPostModal);
-		this.$('#post-body-input').on('focus', function(){
-		  $(this).autosize();
-		});
+		// this.$('#post-body-input').on('focus', function(){
+		// 	debugger
+		//   $(this).autosize();
+		// });
+		this.$('#new-post-alerts-container-modal').on('hide.bs.modal', function () {
+		  $('#post-body-input').val('');
+		})
   	// this.focusModals();
 		return this;
 	},
