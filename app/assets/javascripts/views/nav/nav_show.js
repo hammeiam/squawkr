@@ -25,10 +25,10 @@ Bitter.Views.Nav = Backbone.View.extend({
 		var content = this.template({
 			currentUser: Bitter.users.currentUser()
 		});
-		var newPostModal = this.newPostModal()
+		var newPostModal = this.newPostModal();
 		this.$el.html(content);
 		this.$el.append(newPostModal);
-		$('#post-body-input').autosize();
+		this.$('#post-body-input').autosize();
   	// this.focusModals();
 		return this;
 	},
@@ -137,6 +137,10 @@ Bitter.Views.Nav = Backbone.View.extend({
 	  postForm.append("post[post_body]", postBody);
 	  postForm.append("post[post_hashtags]", hashtags);
 	  return postForm;
+	}, 
+
+	processString: function(string){
+		
 	}
 
 });

@@ -3,7 +3,9 @@ Bitter.Collections.Posts = Backbone.Collection.extend({
   initialize: function(options){
     this.user = options.user;
   },
+
   model: Bitter.Models.Post,
+  
   getOrFetch: function(id){
   	var model = this.get(id);
   	var that = this;

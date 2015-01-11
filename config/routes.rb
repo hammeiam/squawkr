@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get "/auth/:provider/callback", to: "sessions#create"
   resource :session, only: [:destroy]
   namespace :api, defaults: { format: :json } do
-    resources :users, param: :username do 
+    resources :users, param: :username, shallow: true do
       resources :posts, only: [:show, :index, :create]
     end
   end

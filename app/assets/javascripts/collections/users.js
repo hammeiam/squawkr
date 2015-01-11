@@ -28,7 +28,6 @@ Bitter.Collections.Users = Backbone.Collection.extend({
         url: "/session",
         type: "DELETE",
         success: function(resp){
-          // debugger
           currentUser.set( { logged_in: false });
           currentUser.fetch();
           options['alertClass'] = 'alert-success';

@@ -9,6 +9,7 @@ Bitter.Models.User = Backbone.Model.extend({
 		this.posts.url = function(){
 			// return '/api/users/' + that.id + '/posts';
 			return that.url() + '/posts';
+			// return '/api/posts'
 		}
 	}
 });
