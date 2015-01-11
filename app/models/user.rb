@@ -18,7 +18,7 @@
 
 require 'uri'
 class User < ActiveRecord::Base
-	has_many :posts
+	has_many :posts, dependent: :destroy
 	before_validation :ensure_session_token
 
   # def to_param

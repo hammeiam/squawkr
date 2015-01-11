@@ -1,4 +1,5 @@
 json.(post, :id, :post_body, :post_title, :created_at)
+json.link ('#u/' + post.user.username + '/posts/' + post.id.to_s)
 if post.created_at > Date.current - 7.days
 	json.creation_date time_ago_in_words(post.created_at)
 else

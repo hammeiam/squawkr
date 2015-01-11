@@ -28,6 +28,7 @@ Bitter.Views.Nav = Backbone.View.extend({
 		var newPostModal = this.newPostModal()
 		this.$el.html(content);
 		this.$el.append(newPostModal);
+		$('#post-body-input').autosize();
   	// this.focusModals();
 		return this;
 	},
@@ -72,7 +73,7 @@ Bitter.Views.Nav = Backbone.View.extend({
 	populateCanvas: function(){
 		var canvas = $('#canvas');
 		var ctx = canvas.get(0).getContext('2d');
-	  var text = $('#post-body').val(),
+	  var text = $('#post-body-input').val(),
       fontSize = 14,
       width = 440,
       lines = [],
@@ -119,8 +120,8 @@ Bitter.Views.Nav = Backbone.View.extend({
 		var dataURL = canvasEl.toDataURL("image/png");
 		// Get our file
 	  var file = dataURLtoBlob(dataURL);
-	  var postBody = $('#post-body').val();
-	  var postTitle = $('#post-title').val();
+	  var postBody = $('#post-body-input').val();
+	  var postTitle = $('#post-title-input').val();
 	  var hashtagsArr = postBody.match(/#\w+/g) || [];
 	  if(hashtagsArr.length > 0){
 	  	var hashtags = hashtagsArr.join(' ');
