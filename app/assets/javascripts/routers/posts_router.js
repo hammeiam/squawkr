@@ -13,6 +13,8 @@ Bitter.Routers.Posts = Backbone.Router.extend({
 
 	front: function(){
 		var view = new Bitter.Views.FrontShow();
+				// this.navigate('#', { trigger: true});
+
 		this._swapView(view);
 	},
 
@@ -44,7 +46,7 @@ Bitter.Routers.Posts = Backbone.Router.extend({
 		Backbone.history.navigate('', { trigger: false })
 	},
 
-	_swapView: function (view) {
+	_swapView: function(view) {
     this._currentView && this._currentView.remove();
     this._currentView = view;
     this.$rootEl.html(view.render().$el);

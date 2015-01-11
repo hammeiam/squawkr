@@ -16,7 +16,6 @@ Bitter.Views.PostShow = Backbone.CompositeView.extend({
 			post: this.model,
 			user: this.user
 		});
-		console.log(this.user)
 		this.$el.html(content);
 		this.attachSubviews();
 		return this;
