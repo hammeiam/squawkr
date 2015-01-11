@@ -3,23 +3,41 @@
 		<span><a href="/#"><h1 class="logo">squawkr</h1></a></span>
 	</li>
 	<% if(!!currentUser){ %>
-	<li class="right">
-		<span>
-			<a href="javascript:void(0)" id="signOutAction">Sign Out</a>
-		</span>
-	</li>
-	<li class="right">
-		<span>
-			<!-- <a href="javascript:void(0)" id="newPostAction">Create New Post</a> -->
-			<a href="#newPostModal" data-toggle="modal" id="newPostAction">Create New Post</a>
-		</span>
-	</li>
-	<li class="right">
-		<a href="#u/<%= currentUser.escape('username') %>">
-			<img src="<%= currentUser.escape('image_url') %>">
-		</a>
-	</li>
+		<li class="right">
+			<span>
+				<!-- <a href="javascript:void(0)" id="newPostAction">Create New Post</a> -->
+				<a href="#newPostModal" data-toggle="modal" id="newPostAction">New Post</a>
+			</span>
+		</li>
+		<li class="right">
+			<div class="dropdown">
+				<a href="#" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class="dropdown-toggle">
+					<img src="<%= currentUser.escape('image_url') %>">
+				</a>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+		    <li role="presentation">
+		    	<a role="menuitem" 
+		    	tabindex="-1" 
+		    	href="#u/<%= currentUser.escape('username') %>">
+		    		My Profile
+		    	</a>
+		    </li>
+		    <li role="presentation">
+			    <a role="menuitem" 
+			    tabindex="-1" 
+			    href="javascript:void(0)" 
+			    id="signOutAction">
+			    	Sign Out
+			    </a>
+		    </li>
+		    </ul>
+	    </div>
+		</li>
 	<% } else{ %>
 	<li class="right"><a href="/auth/twitter">Sign In</a></li>
 	<% }; %>
 </ul>
+<span class="glyphicon glyphicon-edit"></span>
+<span class="glyphicon glyphicon-pencil"></span>
+<span class="glyphicon glyphicon-plus-sign"></span>
+<span class="glyphicon glyphicon-align-left"></span>

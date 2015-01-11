@@ -34,15 +34,15 @@ Bitter.Routers.Posts = Backbone.Router.extend({
 		this._swapView(view);
 	},
 
-	// notFound: function(){
-	// 	var view; //new Bitter.Views.Home();
-	// 	this._swapView(view);
-	// 	showAlert({
-	// 		alertClass: 'alert-danger',
-	// 		alertMessage: 'Page not found'
-	// 	})
-	// 	Backbone.history.navigate('', { trigger: false })
-	// },
+	notFound: function(){
+		var view = new Bitter.Views.FrontShow();
+		this._swapView(view);
+		showAlert({
+			alertClass: 'alert-danger',
+			alertMessage: 'Page not found'
+		})
+		Backbone.history.navigate('', { trigger: false })
+	},
 
 	_swapView: function (view) {
     this._currentView && this._currentView.remove();

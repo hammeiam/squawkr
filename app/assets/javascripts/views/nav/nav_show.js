@@ -28,7 +28,9 @@ Bitter.Views.Nav = Backbone.View.extend({
 		var newPostModal = this.newPostModal();
 		this.$el.html(content);
 		this.$el.append(newPostModal);
-		this.$('#post-body-input').autosize();
+		this.$('#post-body-input').on('focus', function(){
+		  $(this).autosize();
+		});
   	// this.focusModals();
 		return this;
 	},

@@ -12,10 +12,8 @@ Bitter.Views.PostShow = Backbone.CompositeView.extend({
 	template: JST['posts/show'],
 
   render: function(){
-  	var url = '#u/' + this.user.escape('username') + '/posts/' + this.model.id
 		var content = this.template({
 			post: this.model,
-			url: url,
 			user: this.user
 		});
 		console.log(this.user)
