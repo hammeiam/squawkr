@@ -21,7 +21,6 @@ Bitter.Views.PostsIndex = Backbone.CompositeView.extend({
 	},
 
 	addPost: function(post){
-		console.log('posted')
   	var view = new Bitter.Views.PostsIndexItem({
   		model: post,
   		user: this.user

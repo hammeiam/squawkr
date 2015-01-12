@@ -6,16 +6,27 @@ Bitter.Collections.Posts = Backbone.Collection.extend({
 
   model: Bitter.Models.Post,
   
-  getOrFetch: function(id){
+  getOrFetch: function(id, callback){
   	var model = this.get(id);
   	var that = this;
   	if(!model){
   		model = new Bitter.Models.Post({ id: id });
   		model.fetch({
-  			success: function(){ that.add(model) }
+  			success: function(m, r){ 
+          that.add(model);
+          if(callback){
+            callback(m, r);
+          }
+        }
   		})
   	} else {
-      model.fetch();
+      model.fetch({
+        success: function(m, r){
+          if(callback){
+            callback(m, r);
+          }
+        }
+      });
     }
   	return model;
   }
