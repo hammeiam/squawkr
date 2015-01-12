@@ -35,7 +35,7 @@ module Api
 	        	})
 
 	        # redirect_to root_url, :notice => "I tweeted that."
-	        render json: { success: sent_tweet.url }
+	        render json: { success: sent_tweet.url.to_s }
 	      else
 	      	render json: { errors: @post.errors.full_messages }
 	      end

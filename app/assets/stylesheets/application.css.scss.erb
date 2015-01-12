@@ -22,6 +22,7 @@ $LIGHTBLACK: rgba(0, 0, 0, 0.8);
 $GREY: rgba(0, 0, 0, 0.4);
 $NAVGREEN: #16a085;
 $imgKey: <%= Random.rand(5) + 1 %>;
+$BACKGROUNDIMG: url("https://s3-us-west-1.amazonaws.com/squawkr/hero-background-#{$imgKey}-min.jpg");
 
 body, html, main {
 	margin: 0;
@@ -29,8 +30,10 @@ body, html, main {
 	height: 100%;
 }
 
-body {
-	/*background-color: #ecf0f1;*/
+body:before {
+	// preload background image
+  content: $BACKGROUNDIMG;
+  display:none;
 }
 
 ul {
@@ -66,7 +69,7 @@ ul {
 	-moz-box-shadow: inset 0px 0px 100px 10px rgba(0,0,0,0.75);
 	box-shadow: inset 0px 0px 100px 10px rgba(0,0,0,0.75);
 
-	background: url("https://s3-us-west-1.amazonaws.com/squawkr/hero-background-#{$imgKey}-min.jpg") no-repeat center center fixed;
+	background: $BACKGROUNDIMG no-repeat center center fixed;
 	-webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -148,7 +151,7 @@ h1.logo {
 	width: 100%;
 }
 
-nav .btn-sm{
+.btn-sm{
 	@extend .btn-std;
 	vertical-align: -webkit-baseline-middle;
 	padding: 6px 15px;
@@ -157,12 +160,12 @@ nav .btn-sm{
 	border: 1px solid white;
 }
 
-nav .btn-sm:hover{
+.btn-sm:hover{
 	color: white;
 	background: lighten($NAVGREEN, 5%)
 }
 
-nav .btn-sm:focus{
+.btn-sm:focus{
 	color: white;
 	background: darken($NAVGREEN, 5%)
 }
@@ -215,7 +218,7 @@ p.page-post {
 	font-family: helvetica, sans-serif;
 	color: $LIGHTBLACK;
 }
-span.page-post {
+span.page-post, span.page-post a, span.page-post a:hover {
 	font-style: italic;
 	font-family: helvetica, sans-serif;
 	color: $GREY;
@@ -251,6 +254,11 @@ span.page-post {
 	}
 }
 
+.centered {
+	text-align: center;
+	margin: 30px 0;
+}
+
 /* MODALS */
 .modal {
 	text-align: center;
@@ -275,17 +283,28 @@ span.page-post {
 /* FRONT */
 .hero-content {
 	padding: 40px 0;
+	text-align: center;
 	h1 {
 		font-size: 60px;
 	}
 	h1, h3 {
-		text-align: center;
 		color: white;
 		text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
 	}
 	img {
 		max-width: 460px;
+		margin-bottom: 40px;
 	}
+	.btn-sm {
+		margin: 30px auto; 
+		border:none;
+		padding: 20px 35px;
+		font-size: 20px;
+	}
+	a.btn-sm, a.btn-sm:hover, a.btn-sm:focus {
+			outline: none;
+			text-decoration: none;
+		}
 }
 
 

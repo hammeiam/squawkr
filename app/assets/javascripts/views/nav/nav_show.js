@@ -16,7 +16,8 @@ Bitter.Views.Nav = Backbone.View.extend({
 		// 'click #newPostAction': 'signOut',
 		'submit form#create-new-post': 'createNewPost',
 		'focus #post-body-input': 'applyAutosize',
-		'hidden.bs.modal #newPostModal': 'clearField'
+		'hidden.bs.modal #newPostModal': 'clearField',
+		'click #deleteAccountAction': 'deleteAccount'
 	},
 
 	signOut: function(){
@@ -30,6 +31,38 @@ Bitter.Views.Nav = Backbone.View.extend({
 	clearField: function(e){
 		$(e.currentTarget).find('input').val('');
 		$(e.currentTarget).find('textarea').val('');
+	},
+
+	deleteAccount: function(){
+		var userResp = window.prompt('Deleting your account will erase all account information, including posts, from this site forever. \nType "DELETE" to continue.', '');
+		if(userResp === 'DELETE'){
+			Bitter.users.currentUser().destroy({
+				success: function(model, resp){
+					if(!!resp['success']){
+						var options = {
+	          	alertClass: 'alert-success',
+	          	alertMessage: resp['success']
+	          };
+	          Backbone.history.navigate('#', { trigger: true })
+	          showAlert(options);
+					} else {
+						resp['errors'].forEach(function(message){
+	          	var options = {
+	              alertClass: 'alert-warning',
+	              alertMessage: message,
+	            };
+	            showAlert(options);
+						});
+					};
+				}
+			});
+		} else if(userResp.length > 0) {
+			var options = {
+        alertClass: 'alert-warning',
+        alertMessage: 'Incorrect phrase, please try again.',
+      };
+      showAlert(options);
+		}
 	},
 
 	render: function(){

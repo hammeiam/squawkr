@@ -7,7 +7,13 @@
 		<p class="page-post">
 			<%= post.escape('post_body') %>
 		</p>
-		<span class="page-post"><%= post.escape('creation_date') %> ago</span>
+		<span class="page-post">
+		<% debugger %>
+			<%= post.escape('creation_date') %> ago  |  
+			<a href="<%= post.escape('twitter_url') %>" target="_blank">
+				View on Twitter
+			</a>
+		</span>
 	</div>
 	<div class="user-profile-container">
 		<img src="<%= user.get('image_url') %>" class="profile-image">
