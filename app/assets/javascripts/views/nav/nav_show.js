@@ -15,19 +15,15 @@ Bitter.Views.Nav = Backbone.View.extend({
 
 	events: {
 		'click #signOutAction': 'signOut',
-		'submit form#create-new-post': 'createNewPost',
-		'show.bs.modal #newPostModal': 'clearFields',
 		'click #deleteAccountAction': 'deleteAccount',
+		'show.bs.modal #newPostModal': 'clearFields',
 		'keydown #post-body-input': 'textareaControl',
+		'submit form#create-new-post': 'createNewPost',
 		// 'keyup #post-body-input': 'populateCanvas'
 	},
 
 	signOut: function(){
 		Bitter.users.signOut();
-	},
-
-	applyAutosize: function(e){
-		$(e.currentTarget).autosize();
 	},
 
 	clearFields: function(e){
@@ -49,32 +45,31 @@ Bitter.Views.Nav = Backbone.View.extend({
 	textareaControl: function(e){
 		var text = $('#post-body-input').val();
 		var keyChar = e.which;
-		var allowedChars = [8, 17, 18, 27, 33, 34, 37, 38, 39, 40, 46, 91]
+		var allowedChars = [8, 17, 18, 27, 33, 34, 37, 38, 39, 40, 46, 91];
+		// add or remove character to calculate # lines if this character was allowed
 		var calcText = ((keyChar === 8) ? text.substr(0, text.length - 1) : text + 'x');
-
 		var linesLength = this.populateCanvas(calcText);
+		var $linesRemaining = $('#post-lines-remaining');
 		if(linesLength > 12 && allowedChars.indexOf(keyChar) === -1){
-			// e.preventDefault()
-			$('#post-lines-remaining').addClass( 'red' );
+			// only allow delete, navigation, and control keys. No more input. 
+			$linesRemaining.addClass( 'red' );
 			return false;
 		} else {
-			// var linesLength = this.populateCanvas(text);
-			$('#post-lines-remaining').html(linesLength + ' of 12 lines used')
+			$linesRemaining.html(linesLength + ' of 12 lines used')
 			if(linesLength >= 12){
-				$('#post-lines-remaining').addClass( 'orange' );
-				$('#post-lines-remaining').removeClass( 'red' );
+				$linesRemaining.addClass( 'orange' );
+				$linesRemaining.removeClass( 'red' );
 			} else {
-					$('#post-lines-remaining').removeClass( 'orange' );
-					$('#post-lines-remaining').removeClass( 'red' );
+				$linesRemaining.removeClass( 'orange', 'red' );
 			}
-
 		}
 		return e;
 	},
 
 	createNewPost: function(e){
 		e.preventDefault();
-		// this.populateCanvas();
+		var text = $('#post-body-input').val();
+		this.populateCanvas(text);
 		var postForm = this.createForm();
 	  var posts = this.posts;
 
@@ -112,7 +107,6 @@ Bitter.Views.Nav = Backbone.View.extend({
 	populateCanvas: function(text){
 		var canvas = $('#canvas');
 		var ctx = canvas.get(0).getContext('2d');
-	  // var text = $('#post-body-input').val(),
     var fontSize = 14,
       width = 440,
       lines = [],
