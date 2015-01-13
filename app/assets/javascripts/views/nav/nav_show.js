@@ -15,10 +15,8 @@ Bitter.Views.Nav = Backbone.View.extend({
 
 	events: {
 		'click #signOutAction': 'signOut',
-		// 'click #newPostAction': 'signOut',
 		'submit form#create-new-post': 'createNewPost',
-		// 'focus #post-body-input': 'applyAutosize',
-		'show.bs.modal #newPostModal': 'clearField',
+		'show.bs.modal #newPostModal': 'clearFields',
 		'click #deleteAccountAction': 'deleteAccount',
 		'keydown #post-body-input': 'textareaControl',
 		// 'keyup #post-body-input': 'populateCanvas'
@@ -32,9 +30,10 @@ Bitter.Views.Nav = Backbone.View.extend({
 		$(e.currentTarget).autosize();
 	},
 
-	clearField: function(e){
+	clearFields: function(e){
 		$(e.currentTarget).find('input').val('');
 		$(e.currentTarget).find('textarea').val('');
+		$(e.currentTarget).find('textarea').trigger('keydown')
 	},
 
 	render: function(){
@@ -50,20 +49,24 @@ Bitter.Views.Nav = Backbone.View.extend({
 	textareaControl: function(e){
 		var text = $('#post-body-input').val();
 		var keyChar = e.which;
-		var allowedChars = [8, 27, 33, 34, 37, 38, 39, 40, 46]
-		if(keyChar === 8){
-			text = text.substr(0, text.length - 1);
-		} else {
-			// increase text length by 1
-			text = text + 'x';
-		}
-		var linesLength = this.populateCanvas(text);
-		if(linesLength > 13 && allowedChars(keyChar) === -1){
-			e.preventDefault()
+		var allowedChars = [8, 17, 18, 27, 33, 34, 37, 38, 39, 40, 46, 91]
+		var calcText = ((keyChar === 8) ? text.substr(0, text.length - 1) : text + 'x');
+
+		var linesLength = this.populateCanvas(calcText);
+		if(linesLength > 12 && allowedChars.indexOf(keyChar) === -1){
+			// e.preventDefault()
+			$('#post-lines-remaining').addClass( 'red' );
 			return false;
 		} else {
 			// var linesLength = this.populateCanvas(text);
-			$('#post-lines-remaining').html(linesLength + ' of 13 lines used')
+			$('#post-lines-remaining').html(linesLength + ' of 12 lines used')
+			if(linesLength >= 12){
+				$('#post-lines-remaining').addClass( 'orange' );
+				$('#post-lines-remaining').removeClass( 'red' );
+			} else {
+					$('#post-lines-remaining').removeClass( 'orange' );
+					$('#post-lines-remaining').removeClass( 'red' );
+			}
 
 		}
 		return e;
