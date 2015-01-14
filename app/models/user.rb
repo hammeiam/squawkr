@@ -47,7 +47,6 @@ class User < ActiveRecord::Base
       config.access_token_secret = self.secret
     end
     tags = data[:tags]
-    byebug
     full_title = data[:title]
     if !tags.empty?
       tags.each do |tag|
