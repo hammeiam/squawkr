@@ -47,6 +47,7 @@ gem 'backbone-on-rails'
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'autoprefixer-rails'
 gem 'json'
+gem 'fancybox2-rails', '~> 0.2.8'
 
 group :development do
 	gem 'better_errors'

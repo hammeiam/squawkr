@@ -12,6 +12,13 @@ Bitter.Views.FrontShow = Backbone.CompositeView.extend({
 		var content = this.template();
 		this.$el.html(content);
 		this.attachSubviews();
+		this.$("a.fancybox").fancybox({
+		  helpers: {
+		    overlay: {
+		      locked: false
+		    }
+		  }
+		});
 		return this;
 	},
 })

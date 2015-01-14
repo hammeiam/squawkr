@@ -46,7 +46,21 @@ class User < ActiveRecord::Base
       config.access_token = self.token
       config.access_token_secret = self.secret
     end
-    message = [data[:title], data[:hashtags], data[:post_url]].join(' ')
+    tags = data[:tags]
+    byebug
+    full_title = data[:title]
+    if !tags.empty?
+      tags.each do |tag|
+        temp = [full_title, tag].join(' ')
+        # We only have 93 chars (link length is irrelevant) before it exceeds twitter's limits
+        if temp.length <= 93
+          full_title = temp
+        else
+          break
+        end
+      end
+    end
+    message = [full_title, data[:post_url]].join(' ')
 
     # client.update(message)
     # how can I be sure that the image_data.tempfile is being deleted?

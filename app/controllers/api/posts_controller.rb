@@ -16,14 +16,13 @@ module Api
         	post_body: post_params[:post_body])
 
         if @post.save
-        	# post_url = api_user_post_url(current_user, @post)
         	post_url = root_url + '#u/' + current_user.username + '/posts/' + @post.id.to_s
 
 	        data = {
 	        	image: post_params[:image_data],
 	        	title: post_params[:post_title],
 	        	body: post_params[:post_body],
-	        	hashtags: post_params[:post_hashtags],
+	        	tags: post_params[:post_tags],
 	  				post_url: post_url
 
 	        }
@@ -45,7 +44,8 @@ module Api
 		end
 
 		def post_params
-			params.require(:post).permit(:post_body, :post_title, :post_hashtags, :image_data)
+			params[:post][:post_tags] ||= []
+			params.require(:post).permit(:post_body, :post_title, :image_data, post_tags:[])
 		end
 	end
 end

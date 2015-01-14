@@ -158,12 +158,7 @@ Bitter.Views.Nav = Backbone.View.extend({
 	  var file = dataURLtoBlob(dataURL);
 	  var postBody = $('#post-body-input').val();
 	  var postTitle = $('#post-title-input').val();
-	  var hashtagsArr = postBody.match(/#\w+/g) || [];
-	  if(hashtagsArr.length > 0){
-	  	var hashtags = hashtagsArr.join(' ');
-	  } else {
-	  	var hashtags = '';
-	  }
+	  var tagsArr = postBody.match(/[#|@]\w+/g) || [];
 	  
 	  // Create new form data
 	  var postForm = new FormData();
@@ -171,7 +166,9 @@ Bitter.Views.Nav = Backbone.View.extend({
 	  postForm.append("post[image_data]", file);
 	  postForm.append("post[post_title]", postTitle);
 	  postForm.append("post[post_body]", postBody);
-	  postForm.append("post[post_hashtags]", hashtags);
+	  for (var i = 0; i < tagsArr.length; i++) {
+	  	postForm.append("post[post_tags][]", tagsArr[i]);
+	  };
 	  return postForm;
 	}, 
 

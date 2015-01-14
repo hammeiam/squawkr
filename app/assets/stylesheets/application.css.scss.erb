@@ -10,6 +10,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require fancybox
  *= require_tree .
  *= require_self
  */
@@ -210,6 +211,7 @@ h2.page-post, h2.page-post a {
 	font-size: 28px;
 	color: $LIGHTBLACK;
 	text-decoration: none;
+	word-break: break-all;
 }
 p.page-post {
 	width: 440px;
@@ -217,6 +219,7 @@ p.page-post {
 	line-height: 18px;
 	font-family: helvetica, sans-serif;
 	color: $LIGHTBLACK;
+	word-break: break-all;
 }
 span.page-post, span.page-post a, span.page-post a:hover {
 	font-style: italic;
