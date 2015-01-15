@@ -39,7 +39,32 @@ Bitter.Views.Nav = Backbone.View.extend({
 		var newPostModal = this.newPostModal();
 		this.$el.html(content);
 		this.$el.append(newPostModal);
+		this.startTA(this);
 		return this;
+	},
+
+	startTA: function(view){
+		var users = new Bloodhound({
+		  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('username'),
+		  queryTokenizer: Bloodhound.tokenizers.whitespace,
+		  // remote: '../data/films/queries/%QUERY.json'
+		  prefetch: 'api/users.json',
+
+		});
+		 
+		users.initialize();
+		 
+		view.$('#search .typeahead').typeahead(null, {
+		  name: 'my-users',
+		  displayKey: 'username',
+		  source: users.ttAdapter(),
+		  templates: {
+		  	empty: [].join('\n'),
+		  	suggestion: function(datum){
+		  		return [].join('/n')
+		  	}
+		  }
+		});
 	},
 
 	textareaControl: function(e){
