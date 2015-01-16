@@ -43,6 +43,12 @@ module Api
       end
 		end
 
+		def destroy
+			@post = Post.find(params[:id])
+			@post.destroy
+			render json: { success: @post }
+		end
+
 		def post_params
 			params[:post][:post_tags] ||= []
 			params.require(:post).permit(:post_body, :post_title, :image_data, post_tags:[])

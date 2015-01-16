@@ -9,6 +9,10 @@ Bitter.Views.PostShow = Backbone.CompositeView.extend({
     this.listenTo(this.user, 'sync', this.render)
   },
 
+  events: {
+  	'click #deletePostAction': 'deletePost'
+  },
+
 	template: JST['posts/show'],
 
   render: function(){
@@ -20,4 +24,28 @@ Bitter.Views.PostShow = Backbone.CompositeView.extend({
 		this.attachSubviews();
 		return this;
 	},
+
+	deletePost: function(e){
+		e.preventDefault();
+		this.model.destroy({
+				success: function(model, resp){
+					if(!!resp['success']){
+						var options = {
+	          	alertClass: 'alert-success',
+	          	alertMessage: 'Post deleted'
+	          };
+	          Backbone.history.navigate('#u/' + Bitter.users.currentUser().get('username'), { trigger: true })
+	          showAlert(options);
+					} else {
+						resp['errors'].forEach(function(message){
+	          	var options = {
+	              alertClass: 'alert-warning',
+	              alertMessage: message,
+	            };
+	            showAlert(options);
+						});
+					};
+				}
+			});
+	}
 })

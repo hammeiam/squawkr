@@ -12,6 +12,11 @@
 			<a href="<%= post.escape('twitter_url') %>" target="_blank">
 				View on Twitter
 			</a>
+			<% if(user === Bitter.users.currentUser()){ %>
+				| <a href="javascript:void(0)" target="_blank" id="deletePostAction">
+				Delete Post
+			</a>
+			<% } %>
 		</span>
 	</div>
 	<div class="user-profile-container">
