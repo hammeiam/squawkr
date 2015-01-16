@@ -19,7 +19,12 @@ Bitter.Views.Nav = Backbone.View.extend({
 		'show.bs.modal #newPostModal': 'clearFields',
 		'keydown #post-body-input': 'textareaControl',
 		'submit form#create-new-post': 'createNewPost',
+		'typeahead:selected': 'selectSearchOption'
 		// 'keyup #post-body-input': 'populateCanvas'
+	},
+	
+	selectSearchOption: function(obj, datum, name){
+		Backbone.history.navigate('#u/' + datum.username, {trigger: true})
 	},
 
 	signOut: function(){
@@ -45,7 +50,7 @@ Bitter.Views.Nav = Backbone.View.extend({
 
 	startTA: function(view){
 		var users = new Bloodhound({
-		  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('username'),
+		  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name', 'username'),
 		  queryTokenizer: Bloodhound.tokenizers.whitespace,
 		  // remote: '../data/films/queries/%QUERY.json'
 		  prefetch: 'api/users.json',
@@ -55,13 +60,17 @@ Bitter.Views.Nav = Backbone.View.extend({
 		users.initialize();
 		 
 		view.$('#search .typeahead').typeahead(null, {
-		  name: 'my-users',
+		  // name: 'my-users',
 		  displayKey: 'username',
 		  source: users.ttAdapter(),
 		  templates: {
-		  	empty: [].join('\n'),
-		  	suggestion: function(datum){
-		  		return [].join('/n')
+		  	empty: ['<div class="tt-empty">',
+		  	'<span>There are no users with that name</span>',
+		  	'</div>'].join('\n'),
+		  	suggestion: function(datum){ 
+		  		return ['<div class="typeahead-option" data-username="' + datum.username + '">',
+		  		'<span>' + datum.name +'</span>',
+		  		'<span class="grey">@' + datum.username +'</span>'].join('\n')
 		  	}
 		  }
 		});

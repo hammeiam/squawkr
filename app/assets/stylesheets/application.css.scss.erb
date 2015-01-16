@@ -217,8 +217,8 @@ h1.logo {
 }
 
 .tt-dropdown-menu {
-  width: 160px;
-  color: $GREY;
+  width: 320px;
+  color: $LIGHTBLACK;
   margin-top: 4px;
   padding: 4px 0;
   background-color: #fff;
@@ -232,15 +232,26 @@ h1.logo {
           box-shadow: 0 5px 10px rgba(0,0,0,.2);
 }
 
-.tt-suggestion {
+.tt-suggestion, .tt-empty {
   padding: 3px 20px;
   line-height: 24px;
+  a {
+  	color: $GREY;
+  }
+  .grey {
+		color: $GREY;
+	}
 }
 
 .tt-suggestion.tt-cursor {
   color: #fff;
   background-color: $NAVGREEN;
-
+  a, a:hover {
+  	color: #fff;
+  }
+  .grey {
+		color: #fff;
+	}
 }
 
 .tt-suggestion p {
