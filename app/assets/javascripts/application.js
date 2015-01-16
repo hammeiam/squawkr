@@ -19,6 +19,7 @@
 //= require jquery.serializejson.min.js
 //= require jquery.autosize.min.js
 //= require fancybox
+//= require typeahead.bundle.js
 //= require_tree ../templates
 //= require_tree ./utils
 //= require_tree ./models

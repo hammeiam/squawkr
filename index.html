@@ -1,0 +1,39 @@
+<<!DOCTYPE html>
+<html>
+<head>
+	<title>teting</title>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+	<script src="http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		var bestPictures = new Bloodhound({
+		  // datumTokenizer: Bloodhound.tokenizers.obj.whitespace('username'),
+		  datumTokenizer: function(d){ 
+		  	debugger
+		  	return Bloodhound.tokenizers.obj.whitespace(d.username) 
+		  },
+		  queryTokenizer: Bloodhound.tokenizers.whitespace,
+		  // prefetch: '../data/films/post_1960.json',
+		  // remote: '../data/films/queries/%QUERY.json'
+		  prefetch: 'http://www.squawkr.me/api/users'
+		});
+		 
+		bestPictures.initialize();
+		 
+		view.$('#remote .typeahead').typeahead(null, {
+		  name: 'best-pictures',
+		  displayKey: 'username',
+		  source: bestPictures.ttAdapter()
+		});
+		})()
+	</script>
+</head>
+<body>
+
+<div id="remote">
+  <input class="typeahead" type="text" placeholder="Oscar winners for Best Picture">
+</div>
+
+</body>
+</html>
