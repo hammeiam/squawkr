@@ -28,24 +28,24 @@ Bitter.Views.PostShow = Backbone.CompositeView.extend({
 	deletePost: function(e){
 		e.preventDefault();
 		this.model.destroy({
-				success: function(model, resp){
-					if(!!resp['success']){
-						var options = {
-	          	alertClass: 'alert-success',
-	          	alertMessage: 'Post deleted'
-	          };
-	          Backbone.history.navigate('#u/' + Bitter.users.currentUser().get('username'), { trigger: true })
-	          showAlert(options);
-					} else {
-						resp['errors'].forEach(function(message){
-	          	var options = {
-	              alertClass: 'alert-warning',
-	              alertMessage: message,
-	            };
-	            showAlert(options);
-						});
-					};
-				}
-			});
+			success: function(model, resp){
+				if(!!resp['success']){
+					var options = {
+          	alertClass: 'alert-success',
+          	alertMessage: 'Post deleted'
+          };
+          Backbone.history.navigate('#u/' + Bitter.users.currentUser().get('username'), { trigger: true })
+          showAlert(options);
+				} else {
+					resp['errors'].forEach(function(message){
+          	var options = {
+              alertClass: 'alert-warning',
+              alertMessage: message,
+            };
+            showAlert(options);
+					});
+				};
+			}
+		});
 	}
 })

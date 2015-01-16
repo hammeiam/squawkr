@@ -50,13 +50,11 @@ Bitter.Views.Nav = Backbone.View.extend({
 	},
 
 	startTA: function(view){
-		debugger
 		var users = new Bloodhound({
 		  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name', 'username'),
 		  queryTokenizer: Bloodhound.tokenizers.whitespace,
 		  // remote: '../data/films/queries/%QUERY.json'
-		  prefetch: 'api/users.json',
-
+		  prefetch: 'api/users.json', 
 		});
 		 
 		users.initialize();
@@ -141,40 +139,45 @@ Bitter.Views.Nav = Backbone.View.extend({
 	},
 
 	populateCanvas: function(text){
-		var canvas = $('#canvas');
-		var ctx = canvas.get(0).getContext('2d');
+		var $canvas = $('#canvas');
+		var ctx = $canvas.get(0).getContext('2d');
     var fontSize = 14,
     // same as $POSTWIDTH css
       postWidth = 506,
       lines = [],
-      line = '',
-      lineTest = '',
-      words = text.split(' '),
-      currentY = 0;
+      currentY = 0,
+      newLines = text.split(/\r\n|\r|\n/g);
 	  
 	  ctx.font = 'normal normal normal ' + fontSize + 'px Helvetica';
-	  
-	  for (var i = 0, len = words.length; i < len; i++) {
-	    lineTest = line + words[i] + ' ';
-	    
-	    // Check total width of line or last word
-	    if (ctx.measureText(lineTest).width > postWidth) {
-	      // Calculate the new height
-	      currentY = lines.length * (fontSize + 4) + fontSize;
+	  for (var i = 0; i < newLines.length; i++) {
+	  	var line = '',
+      	lineTest = '',
+      	words = newLines[i].split(' ');
 
-	      // Record and reset the current line
-	      lines.push({ text: line, height: currentY });
-	      line = words[i] + ' ';
-	    } else {
-	      line = lineTest;
-	    }
+      for (var j = 0; j < words.length; j++) {
+		    lineTest = line + words[j] + ' ';
+		    
+		    // Check total width of line or last word
+		    if (ctx.measureText(lineTest).width > postWidth) {
+		      // Calculate the new height
+		      currentY = lines.length * (fontSize + 4) + fontSize;
+
+		      // Record and reset the current line
+		      lines.push({ text: line, height: currentY });
+		      line = words[j] + ' ';
+		    } else {
+		      line = lineTest;
+		    }
+		  };
+		  
+		  // Catch last line in-case something is left over
+		  if (line.length > 0) {
+		    currentY = lines.length * (fontSize + 4) + fontSize;
+		    lines.push({ text: line.trim(), height: currentY });
+		  };
 	  };
+	  debugger
 	  
-	  // Catch last line in-case something is left over
-	  if (line.length > 0) {
-	    currentY = lines.length * (fontSize + 4) + fontSize;
-	    lines.push({ text: line.trim(), height: currentY });
-	  };
 	  
 	  // Visually output text
 	  ctx.fillStyle = "white";

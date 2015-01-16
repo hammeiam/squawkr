@@ -3,7 +3,7 @@
 		<a href="<%= url %>"><%= post.escape('post_title') %></a>
 	</h2>
 	<p class="page-post">
-		<%= post.escape('post_body') %>
+		<%= post.get('post_body') %>
 	</p>
 	<span class="page-post"><%= post.escape('creation_date') %> ago</span>
 </div>

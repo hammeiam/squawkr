@@ -5,7 +5,7 @@
 			<%= post.escape('post_title') %>
 		</h2>
 		<p class="page-post">
-			<%= post.escape('post_body') %>
+			<%= post.get('post_body') %>
 		</p>
 		<span class="page-post">
 			<%= post.escape('creation_date') %> ago  |  
