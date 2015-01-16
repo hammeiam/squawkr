@@ -44,11 +44,13 @@ Bitter.Views.Nav = Backbone.View.extend({
 		var newPostModal = this.newPostModal();
 		this.$el.html(content);
 		this.$el.append(newPostModal);
-		this.startTA(this);
+		var that = this;
+		$(document).ready(that.startTA(that));
 		return this;
 	},
 
 	startTA: function(view){
+		debugger
 		var users = new Bloodhound({
 		  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name', 'username'),
 		  queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -142,7 +144,8 @@ Bitter.Views.Nav = Backbone.View.extend({
 		var canvas = $('#canvas');
 		var ctx = canvas.get(0).getContext('2d');
     var fontSize = 14,
-      width = 440,
+    // same as $POSTWIDTH css
+      postWidth = 506,
       lines = [],
       line = '',
       lineTest = '',
@@ -155,7 +158,7 @@ Bitter.Views.Nav = Backbone.View.extend({
 	    lineTest = line + words[i] + ' ';
 	    
 	    // Check total width of line or last word
-	    if (ctx.measureText(lineTest).width > width) {
+	    if (ctx.measureText(lineTest).width > postWidth) {
 	      // Calculate the new height
 	      currentY = lines.length * (fontSize + 4) + fontSize;
 
@@ -175,7 +178,7 @@ Bitter.Views.Nav = Backbone.View.extend({
 	  
 	  // Visually output text
 	  ctx.fillStyle = "white";
-	  ctx.fillRect(0, 0, 440, 220);
+	  ctx.fillRect(0, 0, postWidth, 250);
 	  for (var i = 0, len = lines.length; i < len; i++) {
 	  	ctx.fillStyle = "rgb(41, 47, 51);"
 	    ctx.fillText(lines[i].text, 0, lines[i].height);
@@ -236,10 +239,5 @@ Bitter.Views.Nav = Backbone.View.extend({
       };
       showAlert(options);
 		}
-	},
-
-	processString: function(string){
-		
 	}
-
 });

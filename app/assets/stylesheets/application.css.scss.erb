@@ -18,7 +18,8 @@
 @import "bootstrap";
 @import url(http://fonts.googleapis.com/css?family=Roboto:900);
 
-$MINWIDTH: 460px;
+$POSTWIDTH: 506px; // 440
+$MINWIDTH: $POSTWIDTH + 20px;
 $LIGHTBLACK: rgba(0, 0, 0, 0.8);
 $GREY: rgba(0, 0, 0, 0.4);
 $NAVGREEN: #16a085;
@@ -105,8 +106,6 @@ nav {
 		// margin-top: -10px; 
 	}
 	ul.nav-main{
-		/*list-style-type: none;*/
-		/*max-width: 600px;*/
 		max-width: 60%;
 		min-width: $MINWIDTH;
 		height: 45px;
@@ -130,11 +129,6 @@ nav {
 }
 
 h1.logo {
-	/*background-image:  url(<%= asset_path 'squawkr-logo-small.png' %>);
-	background-repeat: no-repeat;
-	background-position: center;
-	width: 126px;
-	height: 35px;*/
 	color: white;
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 30px;
@@ -270,15 +264,15 @@ h2.page-post, h2.page-post a {
 	font-size: 28px;
 	color: $LIGHTBLACK;
 	text-decoration: none;
-	word-break: break-all;
+	word-break: normal;
 }
 p.page-post {
-	width: 440px;
+	width: $POSTWIDTH;
 	font-size: 14px;
 	line-height: 18px;
 	font-family: helvetica, sans-serif;
 	color: $LIGHTBLACK;
-	word-break: break-all;
+	word-break: keep-all;
 }
 span.page-post, span.page-post a, span.page-post a:hover {
 	font-style: italic;
@@ -334,8 +328,8 @@ span.page-post, span.page-post a, span.page-post a:hover {
 	textarea {
 		@extend p.page-post;
 		padding: 6px 12px;
-		width: 462px; /*width is 440 + padding - borders */
-		height: 232px; /* height is 220 + padding */
+		width: $POSTWIDTH + 22px; /*width is 440 + padding - borders */
+		height: 250px + 12px; /* height is 220 + padding */
 		resize: none;
 		word-wrap: normal;
 	}
