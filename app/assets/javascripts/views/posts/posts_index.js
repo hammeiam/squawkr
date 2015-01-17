@@ -1,8 +1,6 @@
 Bitter.Views.PostsIndex = Backbone.CompositeView.extend({
 	initialize: function(options){
 		this.user = options.user;
-		// this.collection.each(this.addPost.bind(this));
-		// this.listenTo(this.collection, 'add', this.addPost);
     this.listenTo(this.collection, 'sync', this.render);
   },
 
@@ -14,9 +12,7 @@ Bitter.Views.PostsIndex = Backbone.CompositeView.extend({
 		});
 		this.$el.html(content);
 		var that = this;
-    // _.each(this.collection, this.addPost.bind(that));
     this.collection.each(this.addPost.bind(that))
-		// this.attachSubviews();
 		return this;
 	},
 
@@ -26,6 +22,5 @@ Bitter.Views.PostsIndex = Backbone.CompositeView.extend({
   		user: this.user
   	});
   	this.addSubview('#user-posts', view);
-  	// this.render();
   }
 })

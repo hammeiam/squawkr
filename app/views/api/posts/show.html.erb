@@ -1,3 +1,2 @@
 <h1><%= @post.post_title %></h1>
-<% byebug %>
-<p><%= sanitize(@post.post_body).gsub(/(\r)?\n/, "<br/>").html_safe %></p>
+<p><%= @post.post_body %></p>

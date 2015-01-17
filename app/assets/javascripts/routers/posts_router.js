@@ -13,8 +13,6 @@ Bitter.Routers.Posts = Backbone.Router.extend({
 
 	front: function(){
 		var view = new Bitter.Views.FrontShow();
-				// this.navigate('#', { trigger: true});
-
 		this._swapView(view, 'Home');
 	},
 
@@ -67,5 +65,4 @@ Bitter.Routers.Posts = Backbone.Router.extend({
 			});
 	  };
    }
-
 });

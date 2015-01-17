@@ -18,7 +18,7 @@
 @import "bootstrap";
 @import url(http://fonts.googleapis.com/css?family=Roboto:900);
 
-$POSTWIDTH: 506px; // 440
+$POSTWIDTH: 506px; 
 $MINWIDTH: $POSTWIDTH + 20px;
 $LIGHTBLACK: rgba(0, 0, 0, 0.8);
 $GREY: rgba(0, 0, 0, 0.4);
@@ -193,6 +193,10 @@ h1.logo {
   content: '';
 }
 
+.glyphicon {
+	margin-right: 5px;
+}
+
 /* NAV: SEARCH BAR */
 #search .typeahead {
 	height: 30px;
@@ -204,6 +208,10 @@ h1.logo {
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
      -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+input.typeahead.form-control.tt-input {
+	background-color: white !important;
 }
 
 .tt-hint {

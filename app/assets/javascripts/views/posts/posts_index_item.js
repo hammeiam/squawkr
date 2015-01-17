@@ -1,6 +1,7 @@
 Bitter.Views.PostsIndexItem = Backbone.View.extend({
 	initialize: function(options){
 		this.user = options.user;
+		this.url = '#u/' + this.user.escape('username') + '/posts/' + this.model.id
     this.listenTo(this.model, 'sync', this.render);
   },
 
@@ -8,10 +9,9 @@ Bitter.Views.PostsIndexItem = Backbone.View.extend({
 	tagName: 'li',
 
   render: function(){
-  	var url = '#u/' + this.user.escape('username') + '/posts/' + this.model.id
 		var content = this.template({
 			post: this.model,
-			url: url
+			url: this.url
 		});
 		this.$el.html(content);
 		return this;

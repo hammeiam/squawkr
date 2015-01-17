@@ -1,12 +1,8 @@
 Bitter.Views.PostShow = Backbone.CompositeView.extend({
 	initialize: function(options){
-		var navView = new Bitter.Views.Nav({
-			collection: Bitter.users
-		});
 		this.user = options.user;
-		this.addSubview('#nav-container', navView);
     this.listenTo(this.model, 'sync', this.render);
-    this.listenTo(this.user, 'sync', this.render)
+    this.listenTo(this.user, 'sync', this.render);
   },
 
   events: {
@@ -21,7 +17,10 @@ Bitter.Views.PostShow = Backbone.CompositeView.extend({
 			user: this.user
 		});
 		this.$el.html(content);
-		this.attachSubviews();
+		var navView = new Bitter.Views.Nav({
+			collection: Bitter.users
+		});
+		this.addSubview('#nav-container', navView);
 		return this;
 	},
 

@@ -1,26 +1,25 @@
 Bitter.Views.Nav = Backbone.View.extend({
 	tagName: 'nav',
-	// className: 'nav-main',
+
 	template: JST['nav/show'],
+
 	newPostModal: JST['modals/newPost'],
+
 	initialize: function(options){
-		// address excessive rendering of nav
 		if(!!Bitter.users.currentUser()){
 			this.posts = Bitter.users.currentUser().posts;
 		}
 		this.listenTo(this.collection, 'sync add remove change reset', this.render);
-		this.lineCount = 1;
-		this.lastLineLen = 0;
+		this.bloodhound = this.startBloodhound();
 	},
 
 	events: {
-		'click #signOutAction': 'signOut',
-		'click #deleteAccountAction': 'deleteAccount',
+		'click #signOutAction':        'signOut',
+		'click #deleteAccountAction':  'deleteAccount',
 		'show.bs.modal #newPostModal': 'clearFields',
-		'keydown #post-body-input': 'textareaControl',
+		'keydown #post-body-input':    'textareaControl',
 		'submit form#create-new-post': 'createNewPost',
-		'typeahead:selected': 'selectSearchOption'
-		// 'keyup #post-body-input': 'populateCanvas'
+		'typeahead:selected':          'selectSearchOption'
 	},
 	
 	selectSearchOption: function(obj, datum, name){
@@ -34,6 +33,7 @@ Bitter.Views.Nav = Backbone.View.extend({
 	clearFields: function(e){
 		$(e.currentTarget).find('input').val('');
 		$(e.currentTarget).find('textarea').val('');
+		// keydown event resets line count
 		$(e.currentTarget).find('textarea').trigger('keydown')
 	},
 
@@ -43,26 +43,34 @@ Bitter.Views.Nav = Backbone.View.extend({
 		});
 		var newPostModal = this.newPostModal();
 		this.$el.html(content);
+		this.startTA();
 		this.$el.append(newPostModal);
-		var that = this;
-		$(document).ready(that.startTA(that));
+		
 		return this;
 	},
 
-	startTA: function(view){
-		var users = new Bloodhound({
+	startBloodhound: function(){
+		var bh = new Bloodhound({
 		  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name', 'username'),
 		  queryTokenizer: Bloodhound.tokenizers.whitespace,
-		  // remote: '../data/films/queries/%QUERY.json'
-		  prefetch: 'api/users.json', 
+		  limit: 10,
+		  // remote: '/api/usesrs/%QUERY.json'
+		  prefetch: {
+		  	url: '/api/users.json'
+		  }
 		});
 		 
-		users.initialize();
-		 
-		view.$('#search .typeahead').typeahead(null, {
+		bh.initialize();
+		return bh;
+	},
+
+	startTA: function(){
+		// view.$('#search .typeahead').typeahead(null, {
+			var that = this;
+		that.$('#search input.typeahead').typeahead(null, {
 		  // name: 'my-users',
 		  displayKey: 'username',
-		  source: users.ttAdapter(),
+		  source: that.bloodhound.ttAdapter(),
 		  templates: {
 		  	empty: ['<div class="tt-empty">',
 		  	'<span>There are no users with that name</span>',
@@ -175,9 +183,7 @@ Bitter.Views.Nav = Backbone.View.extend({
 		    currentY = lines.length * (fontSize + 4) + fontSize;
 		    lines.push({ text: line.trim(), height: currentY });
 		  };
-	  };
-	  debugger
-	  
+	  };	  
 	  
 	  // Visually output text
 	  ctx.fillStyle = "white";
@@ -188,7 +194,6 @@ Bitter.Views.Nav = Backbone.View.extend({
 	  };
 	  // $('#post-lines-remaining').html(lines.length + ' of 13 lines used')
 	  return lines.length;
-	  console.log(lines.length)
 	},
 
 	createForm: function(){

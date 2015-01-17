@@ -16,6 +16,16 @@ Backbone.CompositeView = Backbone.View.extend({
     }
   },
 
+  onRender: function(){
+    _(this.subviews()).each(function(subviews, selector){
+      _(subviews).each(function(subview){
+        if(subview.onRender){
+          subview.onRender();
+        }
+      })
+    })
+  },
+
   attachSubviews: function () {
     // I decided I didn't want a function that renders ALL the
     // subviews together. Instead, I think:
