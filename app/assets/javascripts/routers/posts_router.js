@@ -23,7 +23,7 @@ Bitter.Routers.Posts = Backbone.Router.extend({
 			model: post,
 			user: user
 		});
-		this._swapView(view, 'Post: ' + post.escape('post_title'));
+		this._swapView(view, 'Post: ' + post.get('post_title'));
 	},
 
 	user: function(username){
