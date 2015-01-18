@@ -92,13 +92,13 @@ Bitter.Views.Nav = Backbone.View.extend({
 		var calcText = ((keyChar === 8) ? text.substr(0, text.length - 1) : text + 'x');
 		var linesLength = this.populateCanvas(calcText);
 		var $linesRemaining = $('#post-lines-remaining');
-		if(linesLength > 12 && allowedChars.indexOf(keyChar) === -1){
+		if(linesLength > 14 && allowedChars.indexOf(keyChar) === -1){
 			// only allow delete, navigation, and control keys. No more input. 
 			$linesRemaining.addClass( 'red' );
 			return false;
 		} else {
-			$linesRemaining.html(linesLength + ' of 12 lines used')
-			if(linesLength >= 12){
+			$linesRemaining.html(linesLength + ' of 14 lines used')
+			if(linesLength >= 14){
 				$linesRemaining.addClass( 'orange' );
 				$linesRemaining.removeClass( 'red' );
 			} else {
@@ -131,6 +131,8 @@ Bitter.Views.Nav = Backbone.View.extend({
           	alertMessage: 'Post Created!'
           };
           showAlert(options);
+          var postUrl = '#u/' + Bitter.users.currentUser().id + '/posts/' + resp['success'].id
+          Backbone.history.navigate(postUrl, { trigger: true })
           posts.fetch();
         } else {
           resp['errors'].forEach(function(message){
@@ -187,7 +189,7 @@ Bitter.Views.Nav = Backbone.View.extend({
 	  
 	  // Visually output text
 	  ctx.fillStyle = "white";
-	  ctx.fillRect(0, 0, postWidth, 250);
+	  ctx.fillRect(0, 0, postWidth, 253);
 	  for (var i = 0, len = lines.length; i < len; i++) {
 	  	ctx.fillStyle = "rgb(41, 47, 51);"
 	    ctx.fillText(lines[i].text, 0, lines[i].height);
