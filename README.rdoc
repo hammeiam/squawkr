@@ -4,8 +4,8 @@ squawkr is a Backbone.js and RoR blogging site that uses the HTML5 canvas elemen
 
 Features include: 
 * Username autofill using Twitter's typeahead.js
-* Posts are restricted to 14 lines long. Since a line can have a variable number of chracters, lines are drawn to a canvas word by word, the width is measured, and a new line is registered if a the width exceeds some set value
+* Posts are restricted to 14 lines long. Since a line can have a variable number of characters, lines are drawn to a canvas word by word, the width is measured, and a new line is registered if a the width exceeds some set value
 * Sign up/in via Omniauth Twitter gem
 * Hand-rolled session management to avoid hitting Twitter every time a user revisits the site
-* @mentions and #hashtags are extrated from posts with regex
+* @mentions and #hashtags are extracted from posts with regex
 * Twitter Bootstrap used for styling
