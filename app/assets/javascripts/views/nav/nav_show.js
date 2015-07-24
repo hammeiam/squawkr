@@ -191,7 +191,7 @@ Bitter.Views.Nav = Backbone.View.extend({
 	  ctx.fillStyle = "white";
 	  ctx.fillRect(0, 0, postWidth, 253);
 	  for (var i = 0, len = lines.length; i < len; i++) {
-	  	ctx.fillStyle = "rgb(41, 47, 51);"
+	  	ctx.fillStyle = "rgb(41, 47, 51)"
 	    ctx.fillText(lines[i].text, 0, lines[i].height);
 	  };
 	  // $('#post-lines-remaining').html(lines.length + ' of 13 lines used')
