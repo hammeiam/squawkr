@@ -90,7 +90,7 @@ Bitter.Views.Nav = Backbone.View.extend({
 		var allowedChars = [8, 17, 18, 27, 33, 34, 37, 38, 39, 40, 46, 91];
 		// add or remove character to calculate # lines if this character was allowed
 		var calcText = ((keyChar === 8) ? text.substr(0, text.length - 1) : text + 'x');
-		var linesLength = this.populateCanvas(calcText);
+		var linesLength = this.populateCanvas(calcText).lineCount;
 		var $linesRemaining = $('#post-lines-remaining');
 		if(linesLength > 14 && allowedChars.indexOf(keyChar) === -1){
 			// only allow delete, navigation, and control keys. No more input. 
@@ -110,7 +110,10 @@ Bitter.Views.Nav = Backbone.View.extend({
 
 	createNewPost: function(e){
 		e.preventDefault();
+		var canvas = $('#canvas').get(0);
 		var text = $('#post-body-input').val();
+		var height = this.populateCanvas(text).height;
+		canvas.height = height;
 		this.populateCanvas(text);
 		var postForm = this.createForm();
 	  var posts = this.posts;
@@ -195,7 +198,10 @@ Bitter.Views.Nav = Backbone.View.extend({
 	    ctx.fillText(lines[i].text, 0, lines[i].height);
 	  };
 	  // $('#post-lines-remaining').html(lines.length + ' of 13 lines used')
-	  return lines.length;
+	  return {
+	  	height:lines.length * (fontSize + 4),
+	  	lineCount: lines.length
+	  };
 	},
 
 	createForm: function(){
