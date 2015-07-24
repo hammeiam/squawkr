@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
   def create
     auth = request.env["omniauth.auth"]
     @user = User.find_by_uid(auth["uid"]) || User.create_with_omniauth(auth)
+    @user.update(image_url: auth["info"]["image"])
     login(@user)
     # render json: { success: @user.id }
     redirect_to root_url
