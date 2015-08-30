@@ -4,8 +4,22 @@ module Api
 			@post = Post.find(params[:id])
 		end
 
+		def recent
+			@posts = Post.all.order(id: :desc).limit(20) # pagination here
+			render :index
+		end
+
 		def index
 			@posts = User.find_by_username(params[:user_username]).posts.all.order(created_at: :desc)
+		end
+
+		def redirect_to_frontend
+			redirect_string = "#notFound"
+			if Post.exists?({id: params[:post_id]})
+				@post = Post.find(params[:post_id])
+				redirect_string = "#u/#{@post.user.username}/posts/#{params[:post_id]}"
+			end
+			redirect_to redirect_string
 		end
 
 		def create
@@ -16,7 +30,7 @@ module Api
         	post_body: post_params[:post_body])
 
         if @post.save
-        	post_url = root_url + '#u/' + current_user.username + '/posts/' + @post.id.to_s
+        	post_url = root_url + 'p/' + @post.id.to_s
 
 	        data = {
 	        	image: post_params[:image_data],

@@ -21,15 +21,16 @@ Bitter.Collections.Users = Backbone.Collection.extend({
   },
 
   signOut: function(){
-    var currentUser = this.currentUser();
+    var cu = this.currentUser();
+    window.currentUser = null;
     var options = {};
-    if(!!currentUser){
+    if(!!cu){
       $.ajax({
         url: "/session",
         type: "DELETE",
         success: function(resp){
-          currentUser.set( { logged_in: false });
-          currentUser.fetch();
+          cu.set( { logged_in: false });
+          cu.fetch();
           options['alertClass'] = 'alert-success';
           options['alertMessage'] = 'Successfully Logged Out';
           showAlert(options);

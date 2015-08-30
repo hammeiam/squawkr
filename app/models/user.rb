@@ -60,7 +60,6 @@ class User < ActiveRecord::Base
       end
     end
     message = [full_title, data[:post_url]].join(' ')
-
     # client.update(message)
     # how can I be sure that the image_data.tempfile is being deleted?
     client.update_with_media(message, data[:image].tempfile)

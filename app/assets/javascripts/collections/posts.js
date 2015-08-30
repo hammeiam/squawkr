@@ -1,8 +1,10 @@
 Bitter.Collections.Posts = Backbone.Collection.extend({
   // url is defined in user.js
   initialize: function(options){
-    this.user = options.user;
+    this.user = options != null ? options.user : void 0;
   },
+
+  url: 'api/posts',
 
   model: Bitter.Models.Post,
   

@@ -23,8 +23,6 @@ $MINWIDTH: $POSTWIDTH + 20px;
 $LIGHTBLACK: rgba(0, 0, 0, 0.8);
 $GREY: rgba(0, 0, 0, 0.4);
 $NAVGREEN: #16a085;
-$imgKey: <%= Random.rand(5) + 1 %>;
-$BACKGROUNDIMG: url("https://s3-us-west-1.amazonaws.com/squawkr/hero-background-#{$imgKey}-min.jpg");
 
 body, html, main {
 	margin: 0;
@@ -34,8 +32,8 @@ body, html, main {
 
 body:before {
 	// preload background image
-  content: $BACKGROUNDIMG;
-  display:none;
+  // content: $BACKGROUNDIMG;
+  // display:none;
 }
 
 ul {
@@ -71,7 +69,7 @@ ul {
 	-moz-box-shadow: inset 0px 0px 100px 10px rgba(0,0,0,0.75);
 	box-shadow: inset 0px 0px 100px 10px rgba(0,0,0,0.75);
 
-	background: $BACKGROUNDIMG no-repeat center center fixed;
+	// background: $BACKGROUNDIMG no-repeat center center fixed;
 	-webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

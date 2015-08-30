@@ -28,6 +28,7 @@ Bitter.Views.Nav = Backbone.View.extend({
 
 	signOut: function(){
 		Bitter.users.signOut();
+		this.trigger('signoutAction')
 	},
 
 	clearFields: function(e){

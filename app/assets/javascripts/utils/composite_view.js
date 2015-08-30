@@ -6,6 +6,7 @@ Backbone.CompositeView = Backbone.View.extend({
   },
 
   attachSubview: function (selector, renderedSubview) {
+    // this.$(selector).empty(); // DH: I added this
     this.$(selector).append(renderedSubview.$el);
     // Bind events in case `subview` has previously been removed from
     // DOM.
@@ -26,7 +27,7 @@ Backbone.CompositeView = Backbone.View.extend({
     })
   },
 
-  attachSubviews: function () {
+  attachSubviews: function (subSelector) {
     // I decided I didn't want a function that renders ALL the
     // subviews together. Instead, I think:
     //
@@ -39,12 +40,20 @@ Backbone.CompositeView = Backbone.View.extend({
     // relevant points in the parent CompositeView.
 
     var view = this;
-    _(this.subviews()).each(function (subviews, selector) {
-      view.$(selector).empty();
-      _(subviews).each(function (subview) {
-        view.attachSubview(selector, subview);
+
+    if(subSelector){
+      view.$(subSelector).empty();
+      _(view.subviews(subSelector)).each(function (subview) {
+        view.attachSubview(subSelector, subview);
       });
-    });
+    } else {
+      _(view.subviews()).each(function (subviews, selector) {
+        view.$(selector).empty();
+        _(subviews).each(function (subview) {
+          view.attachSubview(selector, subview);
+        });
+      });
+    }
   },
 
   remove: function () {

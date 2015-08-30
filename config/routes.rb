@@ -9,7 +9,11 @@ Rails.application.routes.draw do
     resources :users, param: :username, shallow: true do
       resources :posts, only: [:show, :index, :create, :destroy]
     end
+    get 'posts' => 'posts#recent'
   end
+
+  get "/p/:post_id" => 'api/posts#redirect_to_frontend'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
