@@ -122,6 +122,8 @@ GEM
       omniauth-oauth (~> 1.0)
     pg (0.18.1)
     rack (1.5.2)
+    rack-attack (4.3.0)
+      rack
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.1.7)
@@ -220,6 +222,7 @@ DEPENDENCIES
   omniauth
   omniauth-twitter
   pg
+  rack-attack
   rails (= 4.1.7)
   rails_12factor
   sass-rails (~> 5.0.1)
